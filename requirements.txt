@@ -8,3 +8,4 @@ DeepDiff
 mock
 xmljson
 JSONBender
+pyyaml
