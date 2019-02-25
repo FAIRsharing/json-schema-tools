@@ -40,7 +40,7 @@ class FlowRepoClientTestCase(unittest.TestCase):
             quit(0)
 
     def setUp(self):
-        self.client = miflowcyt_validate.FlowRepoClient(map_file, self.api_key)
+        self.client = miflowcyt_validate.FlowRepoClient(map_file, self.api_key, 717)
         self.mappingKeys = {
             "date", "primaryContact", "qualityControlMeasures",
             "conclusions", "organization", "purpose",
@@ -132,32 +132,28 @@ class FlowRepoClientTestCase(unittest.TestCase):
         print(validation)
 
     def test_validate_instance_4(self):
-        experiment_xml_string = self.client.grab_experiment_from_api('FR-FCM-ZZZU')
+        experiment_xml_string = self.client.grab_experiment_from_api('FR-FCM-ZY34')
         experiment_dict = self.client.preprocess_content(experiment_xml_string)
+        print(json.dumps(experiment_dict, indent=4))
+
+        """
         experiment_json = json.dumps(experiment_dict)
         print(experiment_json)
         validation = self.client.validate_instance_from_file(experiment_dict,
                                                              'FR-FCM-ZZZU',
                                                              base_schema)
         print(validation)
+        """
 
     def test_make_validation(self):
-        valid, invalid = self.client.make_validation(10)
-        print(valid)
-        print(invalid)
 
-        """
-        print("----------------------------------------------")
+        valid, invalid = self.client.make_validation()
+        print(json.dumps(valid, indent=4))
+        print('---')
+        print(json.dumps(invalid, indent=4))
 
-        print("VALID IDS")
-        print(json.dumps(error_validation[1], indent=4))
-
-        print("INVALID IDS")
-        print(json.dumps(error_validation[2], indent=4))
-        for itemKey in errors:
-            print(itemKey, errors[itemKey])
-            self.assertTrue(errors[itemKey] == [])
-
-        jsonld_array = self.client.inject_context()
-        print(json.dumps(jsonld_array, indent=4))
-        """
+        map_file = os.path.join(os.path.dirname(__file__),
+                                "/data/miflowcyt_conversion_errors.json")
+        with open(map_file, 'w') as errorFile:
+            errorFile.write(json.dumps(invalid, indent=4))
+            errorFile.close()

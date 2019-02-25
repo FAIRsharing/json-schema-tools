@@ -3,3 +3,4 @@ nose-exclude
 coverage
 coveralls
 json2html
+python-firebasegit checl

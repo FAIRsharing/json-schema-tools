@@ -260,6 +260,12 @@ class FlowRepoClient:
             if field == "primaryContact":
                 extracted_json["primary_contact"] = extracted_json["primaryContact"]
                 del extracted_json["primaryContact"]
+            if field == "keywords":
+                i=0
+                for keyword in extracted_json[field]:
+                    if keyword is None:
+                        extracted_json[field][i] = ""
+                    i += 1
 
         return extracted_json
 
@@ -292,5 +298,8 @@ class FlowRepoClient:
                     else:
                         invalid[raw_experiment] = validation
                 except Exception as e:
-                    invalid[raw_experiment] = "Unexpected error: " + str(e)
+                    invalid[raw_experiment] = {
+                        "instance": experiment,
+                        "error": str(e)
+                    }
         return valid, invalid
