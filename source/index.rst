@@ -6,7 +6,7 @@
 Welcome to jsonldschema's documentation!
 ========================================
 
-The JSONLDschema python package offers functionality to support the creation and use of machine-actionable and FAIR (Findable, Accessible, Interoperable and Reusable) metadata models expressed as `JSON-schemas <https://json-schema.org/>`_ for `JSON-LD <http://json-ld.org/>`_ data.
+The JSONLDschema python package offers functionality to support the creation and use of machine-actionable and FAIR (Findable, Accessible, Interoperable and Reusable) metadata models expressed as `JSON-schemas <https://json-schema.org/>`_ to generate `JSON-LD <http://json-ld.org/>`_ data.
 
 The approach relies on representing the metadata models as JSON-schemas with additional JSON-LD context files to provide semantic annotations to the model.
 
