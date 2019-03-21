@@ -5,22 +5,22 @@ from utils.schema2context import (
     prepare_input,
     create_and_save_contexts,
     generate_context_mapping_dict,
+    generate_labels_from_contexts,
     json
 )
 
 
 class TestSchema2Context(unittest.TestCase):
-
     input = dict({
-      "MIACME": {
-        "schema_url": "https://w3id.org/mircat/miacme/schema/miacme_schema.json"
-      },
-      "MIACA": {
-        "schema_url": "https://w3id.org/mircat/miaca/schema/miaca_schema.json"
-      },
-      "MIFlowCyt": {
-        "schema_url": "https://w3id.org/mircat/miflowcyt/schema/miflowcyt_schema.json"
-      }
+        "MIACME": {
+            "schema_url": "https://w3id.org/mircat/miacme/schema/miacme_schema.json"
+        },
+        "MIACA": {
+            "schema_url": "https://w3id.org/mircat/miaca/schema/miaca_schema.json"
+        },
+        "MIFlowCyt": {
+            "schema_url": "https://w3id.org/mircat/miflowcyt/schema/miflowcyt_schema.json"
+        }
     })
 
     base = {
@@ -49,8 +49,29 @@ class TestSchema2Context(unittest.TestCase):
     def test_generate_mapping_dict(self):
         for key in self.input:
             mapping, errors = generate_context_mapping_dict(
-                        self.input[key]["schema_url"],
-                        self.regexes, key)
+                self.input[key]["schema_url"],
+                self.regexes, key)
             print(json.dumps(mapping, indent=4))
             print(errors)
             self.assertTrue(mapping["networkName"] == key)
+
+    def test_generate_labels_from_contexts(self):
+        labels = {}
+        contexts = {
+            "cell_line_obo_context.jsonld": {
+                "@context": {
+                    "obo": "http://purl.obolibrary.org/obo/",
+                    "CellLine": "obo:CLO_0000031",
+                    "@language": "en",
+                    "ID": "obo:IAO_0000578",
+                    "lineQC": "obo:ERO_0001219",
+                    "validation": "obo:ERO_0002025",
+                    "cellLineName": "obo:IAO_0000590",
+                    "modifications": "obo:CLO_0000004",
+                    "passageNo": "obo:EFO_0007061",
+                    "cellSource": "obo:CL_0000000"
+                }
+            }
+        }
+        generate_labels_from_contexts(contexts, labels)
+        print(labels)
