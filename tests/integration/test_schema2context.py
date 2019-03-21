@@ -55,7 +55,7 @@ class TestSchema2Context(unittest.TestCase):
             print(errors)
             self.assertTrue(mapping["networkName"] == key)
 
-    def test_generate_labels_from_contexts(self):
+    def test_generate_labels_from_contexts_1(self):
         labels = {}
         contexts = {
             "cell_line_obo_context.jsonld": {
@@ -71,6 +71,29 @@ class TestSchema2Context(unittest.TestCase):
                     "passageNo": "obo:EFO_0007061",
                     "cellSource": "obo:CL_0000000"
                 }
+            }
+        }
+        generate_labels_from_contexts(contexts, labels)
+        print(labels)
+
+    def test_generate_labels_from_contexts_2(self):
+        labels = {}
+        contexts={
+            "@context": {
+                "obo": "http://purl.obolibrary.org/obo/",
+                "bao": "http://www.bioassayontology.org/bao#",
+                "ImagingCondition": "obo:FBbi_root_00000000",
+                "@language": "en",
+                "timeSeriesInterval": "obo:IAO_0000584",
+                "imageSequenceType": "obo:NCIT_C69268",
+                "pixels": "obo:NCIT_C48367",
+                "observationPeriod": "obo:NCIT_C25616",
+                "numericalAperture": "obo:NCIT_C44175",
+                "observationPeriodUnit": "obo:UO_0000003",
+                "objectiveLens": "obo:ERO_0000453",
+                "modality": "obo:FBbi_00000222",
+                "channelDefinition": "bao:BAO_0000184",
+                "timeSeriesIntervalUnit": "obo:UO_0000003"
             }
         }
         generate_labels_from_contexts(contexts, labels)
