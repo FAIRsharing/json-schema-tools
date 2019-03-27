@@ -1,6 +1,7 @@
 import json
 import os
 from semDiff.fullDiff import FullDiffGenerator
+import multiprocessing
 
 
 output_base_path = os.path.join(os.path.dirname(__file__), "../fullDiffOutput/")
@@ -55,24 +56,34 @@ if __name__ == '__main__':
         "regex": regex,
         "url": MyFlowCyt_schema_url
     }
-
     MIACA_MIACME_merge_network = {
         "name": "MIACA_MIACME_merge",
         "regex": regex2,
         "url": MIACA_MIACME_merge_schema_url
     }
 
-    make_diff(MIACA_network, MIACA_network)
-    make_diff(MIACA_network, MyFlowCyt_network)
-    make_diff(MIACA_network, MIACME_network)
+    cpu_count = multiprocessing.cpu_count()
 
-    make_diff(MIACME_network, MIACME_network)
-    make_diff(MIACME_network, MyFlowCyt_network)
-    make_diff(MIACME_network, MIACA_network)
+    processes = [
+        (MIACA_network, MIACME_network),
+        (MIACA_network, MyFlowCyt_network),
+        (MIACA_network, MIACA_network),
 
-    make_diff(MyFlowCyt_network, MyFlowCyt_network)
-    make_diff(MyFlowCyt_network, MIACME_network)
-    make_diff(MyFlowCyt_network, MIACA_network)
+        (MIACME_network, MIACME_network),
+        (MIACME_network, MyFlowCyt_network),
+        (MIACME_network, MIACA_network),
 
+        (MyFlowCyt_network, MIACME_network),
+        (MyFlowCyt_network, MyFlowCyt_network),
+        (MyFlowCyt_network, MIACA_network)
+    ]
+
+    p = multiprocessing.Pool(processes=cpu_count)
+    result = [p.apply_async(make_diff, args=(x, y)) for (x, y) in processes]
+
+    output = [pp.get() for pp in result]
+
+    """
     make_diff(MIACA_MIACME_merge_network, MIACA_network)
     make_diff(MIACA_network, MIACA_MIACME_merge_network)
+    """
