@@ -62,9 +62,6 @@ if __name__ == '__main__':
         "url": MIACA_MIACME_merge_schema_url
     }
 
-
-    cpu_count = multiprocessing.cpu_count()
-
     processes = [
         (MIACA_network, MIACME_network),
         (MIACA_network, MyFlowCyt_network),
@@ -79,12 +76,11 @@ if __name__ == '__main__':
         (MyFlowCyt_network, MIACA_network)
     ]
 
+    cpu_count = multiprocessing.cpu_count()
     p = multiprocessing.Pool(processes=cpu_count)
     result = [p.apply_async(make_diff, args=(x, y)) for (x, y) in processes]
 
     output = [pp.get() for pp in result]
 
-
     make_diff(MIACA_MIACME_merge_network, MIACA_network)
     make_diff(MIACA_network, MIACA_MIACME_merge_network)
-

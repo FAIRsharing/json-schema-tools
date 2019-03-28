@@ -78,7 +78,7 @@ class TestSchema2Context(unittest.TestCase):
 
     def test_generate_labels_from_contexts_2(self):
         labels = {}
-        contexts={
+        contexts = {
             "@context": {
                 "obo": "http://purl.obolibrary.org/obo/",
                 "bao": "http://www.bioassayontology.org/bao#",
