@@ -42,7 +42,7 @@
                     "items": {
                         "anyOf": [
                             {
-                                "$ref": "test1_second_schema.json#"
+                                "$ref": "test1_second_test2_second_merged_schema.json#"
                             },
                             {
                                 "$ref": "test1_third_schema.json#"
@@ -67,10 +67,10 @@
                     "items": {
                         "anyOf": [
                             {
-                                "$ref": "test2_second_schema.json#"
+                                "$ref": "test1_second_test2_second_merged_schema.json#"
                             },
                             {
-                                "$ref": "third_schema.json#"
+                                "$ref": "third_merged_schema.json#"
                             }
                         ]
                     }

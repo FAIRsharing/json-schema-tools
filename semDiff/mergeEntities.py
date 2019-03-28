@@ -266,13 +266,17 @@ class MergeEntityFromDiff:
 
                             for reference in look_for:
                                 if reference in field['items']:
+
                                     sub_item_iterator = 0
                                     for sub_item in field['items'][reference]:
                                         if '$ref' in sub_item:
-                                            field_ref = sub_item['$ref']
+                                            field_ref = sub_item['$ref'].replace('#', '')
+
                                             if field_ref in self.name_mapping:
+                                                print(field_ref)
+                                                print(self.output['schemas'][schema]['properties'])
                                                 self.output['schemas'][schema]['properties'][
-                                                    reference]['items'][
+                                                    item]['items'][reference][
                                                     sub_item_iterator]['$ref'] = \
                                                     self.name_mapping[field_ref] + "#"
                                         sub_item_iterator += 1
