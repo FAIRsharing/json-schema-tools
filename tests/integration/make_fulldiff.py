@@ -25,9 +25,9 @@ if __name__ == '__main__':
     MIACA_schema_url = "https://w3id.org/mircat/miaca/schema/miaca_schema.json"
     MyFlowCyt_schema_url = "https://w3id.org/mircat/miflowcyt/schema/miflowcyt_schema.json"
     MIACA_MIACME_merge_schema_url = \
-        "https://w3id.org/mircat/miaca_miacme_merge/schema/miaca_schema.json"
+        "https://w3id.org/mircat/miaca_miacme_merge/schema/miaca_miacme_merged_schema.json"
     MIACME_MIACA_merge_schem_url = \
-        "https://w3id.org/mircat/miacme_miaca_merge/schema/miacme_schema.json"
+        "https://w3id.org/mircat/miacme_miaca_merge/schema/miacme_miaca_merged_schema.json"
 
     regex = {
         "/schema": "/context/obo",
@@ -62,17 +62,17 @@ if __name__ == '__main__':
         "url": MIACA_MIACME_merge_schema_url
     }
 
-    make_diff(MIACA_network, MIACA_network)
-    make_diff(MIACA_network, MyFlowCyt_network)
-    make_diff(MIACA_network, MIACME_network)
-
-    make_diff(MIACME_network, MIACME_network)
-    make_diff(MIACME_network, MyFlowCyt_network)
-    make_diff(MIACME_network, MIACA_network)
-
-    make_diff(MyFlowCyt_network, MyFlowCyt_network)
-    make_diff(MyFlowCyt_network, MIACME_network)
-    make_diff(MyFlowCyt_network, MIACA_network)
+    # make_diff(MIACA_network, MIACA_network)
+    # make_diff(MIACA_network, MyFlowCyt_network)
+    # make_diff(MIACA_network, MIACME_network)
+    #
+    # make_diff(MIACME_network, MIACME_network)
+    # make_diff(MIACME_network, MyFlowCyt_network)
+    # make_diff(MIACME_network, MIACA_network)
+    #
+    # make_diff(MyFlowCyt_network, MyFlowCyt_network)
+    # make_diff(MyFlowCyt_network, MIACME_network)
+    # make_diff(MyFlowCyt_network, MIACA_network)
 
     make_diff(MIACA_MIACME_merge_network, MIACA_network)
     make_diff(MIACA_network, MIACA_MIACME_merge_network)
