@@ -112,6 +112,12 @@ class MergeEntityFromDiff:
                 merged_schema['title'] = merged_title
                 merged_schema['description'] = merged_description
                 merged_context[field] = overlaps['network2']['contexts'][schemaName][field]
+                if not overlaps['network2']['contexts'][schemaName][field].startswith(
+                        ('http', 'https')):
+                    base_semantic_value = overlaps[
+                        'network2']['contexts'][schemaName][field].split(":")[0]
+                    merged_context[base_semantic_value] = overlaps[
+                        'network2']['contexts'][schemaName][base_semantic_value]
 
                 self.find_references(
                     overlaps['network2']['schemas'][schemaName]['properties'][field])
@@ -212,7 +218,6 @@ class MergeEntityFromDiff:
             if schema_name is not None \
                     and schema_name not in self.output['schemas'] \
                     and (schema_name[0] != '#' and schema_name[0] != '/'):
-                print(schema_name)
                 schema_name = schema_name.replace("#", '')
                 self.output['schemas'][schema_name] = \
                     self.content['network2']['schemas'][schema_name]
