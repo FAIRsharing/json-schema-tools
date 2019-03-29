@@ -145,7 +145,6 @@ class MergeEntityFromDiff:
                 new_schema['title'] = new_title
 
                 if 'enum' in new_schema['properties']['@type']:
-                    print()
                     type_iterator = 0
                     for schema_type in new_schema['properties']['@type']['enum']:
                         if schema_type == self.main_schema_name:
@@ -214,10 +213,10 @@ class MergeEntityFromDiff:
                 schema_name = schema_name.replace("#", '')
                 self.output['schemas'][schema_name] = \
                     self.content['network2']['schemas'][schema_name]
-                """if schema_name in self.content['network2']['contexts']:
-                    self.output['contexts'][schema_name] = \
-                        self.content['network2']['contexts'][schema_name]"""
-                self.find_references(self.content['network2']['schemas'][schema_name])
+                self.output['contexts'][schema_name] = \
+                    self.content['network2']['contexts'][schema_name]
+                for field in self.content['network2']['schemas'][schema_name]['properties']:
+                    self.find_references(self.content['network2']['schemas'][schema_name]['properties'][field])
 
     def modify_references(self):
         """ Modify the $ref names
@@ -273,8 +272,6 @@ class MergeEntityFromDiff:
                                             field_ref = sub_item['$ref'].replace('#', '')
 
                                             if field_ref in self.name_mapping:
-                                                print(field_ref)
-                                                print(self.output['schemas'][schema]['properties'])
                                                 self.output['schemas'][schema]['properties'][
                                                     item]['items'][reference][
                                                     sub_item_iterator]['$ref'] = \
