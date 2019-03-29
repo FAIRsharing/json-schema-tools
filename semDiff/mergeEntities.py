@@ -209,14 +209,18 @@ class MergeEntityFromDiff:
         :return:
         """
         if schema_name not in self.name_mapping:
-            if schema_name is not None and schema_name not in self.output['schemas']:
+            if schema_name is not None \
+                    and schema_name not in self.output['schemas'] \
+                    and (schema_name[0] != '#' and schema_name[0] != '/'):
+                print(schema_name)
                 schema_name = schema_name.replace("#", '')
                 self.output['schemas'][schema_name] = \
                     self.content['network2']['schemas'][schema_name]
                 self.output['contexts'][schema_name] = \
                     self.content['network2']['contexts'][schema_name]
                 for field in self.content['network2']['schemas'][schema_name]['properties']:
-                    self.find_references(self.content['network2']['schemas'][schema_name]['properties'][field])
+                    self.find_references(self.content['network2']['schemas'][
+                                             schema_name]['properties'][field])
 
     def modify_references(self):
         """ Modify the $ref names
