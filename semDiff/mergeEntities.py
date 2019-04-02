@@ -166,8 +166,8 @@ class MergeEntityFromDiff:
                 del self.output['contexts'][old_schema1_name + '_schema.json']
 
             else:
-                schema_1_name = overlap[0][0].replace('_', '').lower() + '_schema.json'
-                schema_2_name = overlap[0][1].replace('_', '').lower() + '_schema.json'
+                schema_1_name = overlap[0][0].replace('_', '') + '_schema.json'
+                schema_2_name = overlap[0][1].replace('_', '') + '_schema.json'
                 if schema_2_name not in overlaps['fields_to_merge']:
                     self.name_mapping[schema_2_name] = schema_1_name
 
