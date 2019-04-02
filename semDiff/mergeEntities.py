@@ -113,10 +113,13 @@ class MergeEntityFromDiff:
                 merged_schema['description'] = merged_description
                 merged_context[field] = overlaps['network2']['contexts'][schemaName][field]
 
-                if not overlaps['network2']['contexts'][schemaName][field].startswith(('http', 'https')):
+                if not overlaps['network2']['contexts'][schemaName][field].startswith(
+                        ('http', 'https')
+                ):
                     prefix = overlaps['network2']['contexts'][schemaName][field].split(':')[0]
                     if prefix not in merged_context:
-                        merged_context[prefix] = overlaps['network2']['contexts'][schemaName][prefix]
+                        merged_context[prefix] = overlaps['network2'][
+                            'contexts'][schemaName][prefix]
 
                 self.find_references(
                     overlaps['network2']['schemas'][schemaName]['properties'][field])
@@ -232,7 +235,9 @@ class MergeEntityFromDiff:
                         self.content['network2']['contexts'][schema_name]
                     # self.find_references(self.content['network2']['schemas'][schema_name])
                     for field in self.content['network2']['schemas'][schema_name]['properties']:
-                        self.find_references(self.content['network2']['schemas'][schema_name]['properties'][field])
+                        self.find_references(self.content[
+                                                 'network2']['schemas'][schema_name][
+                                                 'properties'][field])
 
     def modify_references(self):
         """ Modify the $ref names
@@ -287,10 +292,11 @@ class MergeEntityFromDiff:
                                             field_ref = sub_item['$ref'].replace('#', '')
 
                                             if field_ref in self.name_mapping:
-                                                self.output['schemas'][schema][
-                                                    'properties'][item]['items'][reference][
-                                                    sub_item_iterator]['$ref'] = \
-                                                    self.name_mapping[field_ref] + "#"
+                                                self.output[
+                                                    'schemas'][schema][
+                                                    'properties'][item][
+                                                    'items'][reference][sub_item_iterator][
+                                                    '$ref'] = self.name_mapping[field_ref] + "#"
                                         sub_item_iterator += 1
 
         for schema in delete_schemas:
