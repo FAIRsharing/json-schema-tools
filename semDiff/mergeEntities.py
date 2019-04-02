@@ -284,7 +284,7 @@ class MergeEntityFromDiff:
                                         schema]['properties'][item]['items']['$ref'] = \
                                         self.name_mapping[field_ref] + '#'
 
-                            for reference in look_for:
+                                                        for reference in look_for:
                                 if reference in field['items']:
                                     sub_item_iterator = 0
                                     for sub_item in field['items'][reference]:
