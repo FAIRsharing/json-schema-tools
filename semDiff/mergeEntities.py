@@ -226,9 +226,7 @@ class MergeEntityFromDiff:
         if schema_name not in self.name_mapping:
             if schema_name is not None and schema_name not in self.output['schemas']:
                 schema_name = schema_name.replace("#", '')
-
                 if schema_name[0] is not "/":
-
                     self.output['schemas'][schema_name] = \
                         self.content['network2']['schemas'][schema_name]
                     self.output['contexts'][schema_name] = \
@@ -276,7 +274,6 @@ class MergeEntityFromDiff:
                                     sub_item_iterator += 1
 
                         if 'items' in field:
-
                             if '$ref' in field['items']:
                                 field_ref = field['items']['$ref'].replace('#', '')
                                 if field_ref in self.name_mapping:
