@@ -113,6 +113,14 @@ class MergeEntityFromDiff:
                 merged_schema['description'] = merged_description
                 merged_context[field] = overlaps['network2']['contexts'][schemaName][field]
 
+                if not overlaps['network2']['contexts'][schemaName][field].startswith(
+                        ('http', 'https')
+                ):
+                    prefix = overlaps['network2']['contexts'][schemaName][field].split(':')[0]
+                    if prefix not in merged_context:
+                        merged_context[prefix] = overlaps['network2'][
+                            'contexts'][schemaName][prefix]
+
                 self.find_references(
                     overlaps['network2']['schemas'][schemaName]['properties'][field])
 
@@ -145,7 +153,6 @@ class MergeEntityFromDiff:
                 new_schema['title'] = new_title
 
                 if 'enum' in new_schema['properties']['@type']:
-                    print()
                     type_iterator = 0
                     for schema_type in new_schema['properties']['@type']['enum']:
                         if schema_type == self.main_schema_name:
@@ -164,6 +171,13 @@ class MergeEntityFromDiff:
                     old_schema1_name + '_schema.json'][process_schema_name(old_schema1_name)]
                 del self.output['contexts'][new_schema_name][process_schema_name(old_schema1_name)]
                 del self.output['contexts'][old_schema1_name + '_schema.json']
+
+            else:
+                schema_1_name = overlap[0][0].lower() + '_schema.json'
+                schema_2_name = overlap[0][1].lower() + '_schema.json'
+
+                if schema_2_name not in overlaps['fields_to_merge']:
+                    self.name_mapping[schema_2_name] = schema_1_name
 
         self.modify_references()
 
@@ -212,12 +226,16 @@ class MergeEntityFromDiff:
         if schema_name not in self.name_mapping:
             if schema_name is not None and schema_name not in self.output['schemas']:
                 schema_name = schema_name.replace("#", '')
-                self.output['schemas'][schema_name] = \
-                    self.content['network2']['schemas'][schema_name]
-                """if schema_name in self.content['network2']['contexts']:
+                if schema_name[0] is not "/":
+                    self.output['schemas'][schema_name] = \
+                        self.content['network2']['schemas'][schema_name]
                     self.output['contexts'][schema_name] = \
-                        self.content['network2']['contexts'][schema_name]"""
-                self.find_references(self.content['network2']['schemas'][schema_name])
+                        self.content['network2']['contexts'][schema_name]
+                    # self.find_references(self.content['network2']['schemas'][schema_name])
+                    for field in self.content['network2']['schemas'][schema_name]['properties']:
+                        self.find_references(self.content[
+                                                 'network2']['schemas'][schema_name][
+                                                 'properties'][field])
 
     def modify_references(self):
         """ Modify the $ref names
@@ -228,13 +246,13 @@ class MergeEntityFromDiff:
         delete_schemas = []
 
         for schema in self.output['schemas']:
-
             if schema in self.name_mapping:
                 delete_schemas.append(schema)
 
             else:
                 if 'properties' in self.output['schemas'][schema]:
                     for item in self.output['schemas'][schema]['properties']:
+
                         field = self.output['schemas'][schema]['properties'][item]
 
                         if '$ref' in field:
@@ -256,7 +274,6 @@ class MergeEntityFromDiff:
                                     sub_item_iterator += 1
 
                         if 'items' in field:
-
                             if '$ref' in field['items']:
                                 field_ref = field['items']['$ref'].replace('#', '')
                                 if field_ref in self.name_mapping:
@@ -266,19 +283,17 @@ class MergeEntityFromDiff:
 
                             for reference in look_for:
                                 if reference in field['items']:
-
                                     sub_item_iterator = 0
                                     for sub_item in field['items'][reference]:
                                         if '$ref' in sub_item:
                                             field_ref = sub_item['$ref'].replace('#', '')
 
                                             if field_ref in self.name_mapping:
-                                                print(field_ref)
-                                                print(self.output['schemas'][schema]['properties'])
-                                                self.output['schemas'][schema]['properties'][
-                                                    item]['items'][reference][
-                                                    sub_item_iterator]['$ref'] = \
-                                                    self.name_mapping[field_ref] + "#"
+                                                self.output[
+                                                    'schemas'][schema][
+                                                    'properties'][item][
+                                                    'items'][reference][sub_item_iterator][
+                                                    '$ref'] = self.name_mapping[field_ref] + "#"
                                         sub_item_iterator += 1
 
         for schema in delete_schemas:
