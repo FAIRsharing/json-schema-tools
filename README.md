@@ -13,11 +13,16 @@ The JSON-Schema specification is an easy way to inform about the syntactic const
 semantic identifiers. In order to cope with this, the semantic constrains were separated from the syntactic ones by using context files inspired by the JSON-LD specification. 
 This separation of concerns has been greatly helpful to create a machine and human readable system for representing syntactic and semantic constrains.
 
+Separating syntactic and semantic layers:
+![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
+
+
+
 The input used to create the toolkit can be found as follow:
 - Minimum Information About Cell Assays: [MIACA](https://github.com/FAIRsharing/mircat/tree/master/miaca) 
 - Minimum Information About Cell Migration Experiments: [MIACME](https://github.com/FAIRsharing/mircat/tree/master/miacme)
 - Data Tag Suite: DATS [schemas](https://github.com/datatagsuite/schema) and [context](https://github.com/datatagsuite/context)
-- Minimum Information About Flow Cytometry experiments: [MiFlowCyt](https://github.com/FAIRsharing/mircat/tree/master/miflowcyt)
+- Minimum Information About Flow Cytometry Experiments: [MiFlowCyt](https://github.com/FAIRsharing/mircat/tree/master/miflowcyt)
 
 This repository offers code to help users deal with these complexes schemas. It also output particular variables that can we represented in the browser 
 using two separate javascript libraries that are presented below.
@@ -39,6 +44,7 @@ First, you will need a virtual environment, import the code and install dependen
 virtualenv venv
 source venv/bin/activate
 git clone https://github.com/FAIRsharing/jsonldschema.git
+cd jsonldschema
 pip install -r requirements.txt
 ```
 
@@ -62,13 +68,12 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 
 ## Exploring an existing set of schemas:
 
-
 ### Story
 
 Whether you need to create your own set of interconnected schemas (we will call them networks) or explore existing ones, 
 you will need to visualize them.
-The [jsonschema documenter tool](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript application that 
-will allows users to explore these networks directly in their browser by either downloading the application locally or using the online service.
+The [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript application that allows users to explore these networks directly in their browser
+by either downloading the application locally or using the online service.
 
 Exploring networks with the JSON-Schema documenter allows you to identify reusable components (simple objects such as Person and Organization have already been described) and to verify that:
 - relationships between schemas and syntactic constrains are represented as expected
