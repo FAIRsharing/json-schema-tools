@@ -71,7 +71,7 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 
 ## Exploring an existing set of schemas:
 
-### Story
+### Use-case
 
 Whether you need to create your own set of interconnected schemas (we will call them networks) or explore existing ones, 
 you will need to visualize them.
@@ -97,6 +97,7 @@ If the schemas are living locally only (which is usually the case during develop
 put it under a web server (such as Apache, Nginx, ...). It will then behave the same way the online service does but can resolve local networks.
 <br/>For instance, if the application is deserved through port 8000, your url would be:
  ```localhost:8000/JSONschema-documenter?schema_url=path/to/main/schema.json&context_mapping_url=path/to/context/mapping/file.json```
+<br/> We recommend using the ```schemas/``` directory at the root of the application for that purpose.
 
 #### Screenshots of the MIACA network loaded in the jsonschema online documenter:
 ![alt text](assets/documenter_miaca.png "Documenter loaded with MIACA schema")
@@ -104,9 +105,9 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave the 
 
 ## Compare schemas
 
-### Story
+### Use-case
 Comparing schemas can be particularly useful if you intend on creating metadata that comply with several models or to identify
-commonalities between networks when creating/extending set of schemas.
+overlaps with existing networks when creating/extending set of schemas.
 <br/>
 The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
 in context files. This means that a field or an object that does not have a semantic attribute will be ignored. This also involves 
@@ -116,13 +117,17 @@ To verify if all fields are correctly tagged, see above [Exploring an existing s
 <br/>
 
 The python tool will assist you into running the comparison process which will generate an output file containing the comparison results.
-<br/> In order to visualize the results, you will need to use a second javascript application, the [compare-and-view]() tool.
+<br/> In order to visualize the results, you will need to use a second javascript application, the [compare-and-view](https://github.com/FAIRsharing/JSONschema-compare-and-view) tool.
 
 
+
+https://fairsharing.github.io/JSONschema-compare-and-view/?target=inputs/MIACA_VS_MIACME.json
 
 ### Usage
 In order to run a comparison you will have to use the ```FullDiffGenerator``` or  ```FullSemDiff```classes (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html))
 
+#### Screenshots of the comparison display between MIACA and MIACME
+![alt text](assets/comparator.png "Comparison between MIACA and MIACME")
 
 ## Merge schemas
 
@@ -136,7 +141,7 @@ Keep in mind: merge order A in B is not B in A.
 
 ## Create new context files
 
-### Story
+### Use-case
 ...
 
 ### Usage
@@ -145,7 +150,7 @@ Keep in mind: merge order A in B is not B in A.
 
 ## Export schemas in the CEDAR application
 
-### Story
+### Use-case
 ...
 
 ### Usage
@@ -154,7 +159,7 @@ Keep in mind: merge order A in B is not B in A.
 
 ## Import and validate MiFlowCyt dataset
 
-### Story
+### Use-case
 ...
 
 ### Usage
@@ -163,7 +168,7 @@ Keep in mind: merge order A in B is not B in A.
 
 ## (Optional) Identify circularity in schemas
 
-### Story
+### Use-case
 ...
 
 ### Usage
