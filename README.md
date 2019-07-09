@@ -80,7 +80,7 @@ by either downloading the application locally or using the online service.
 
 Exploring networks with the JSON-Schema documenter allows you to identify reusable components (simple objects such as Person and Organization have already been described) and to verify that:
 - relationships between schemas and syntactic constrains are represented as expected
-- each field is correctly tagged with a semantic value
+- each field is correctly tagged with a semantic label (e.g.: ```name``` is labelled with ```sdo:name```)
 
 
 ### Usage
@@ -106,16 +106,30 @@ For instance, if the application is deserved through port 8000, your url would b
 ## Compare schemas
 
 ### Story
-...
+Comparing schemas can be particularly useful if you intend on creating metadata that comply with several models or to identify
+commonalities between networks when creating/extending set of schemas.
+<br/>
+The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
+in context files. This means that a field or an object that does not have a semantic attribute will be ignored. This also involves 
+that syntactic constrains are completely ignored.
+<br/>
+To verify if all fields are correctly tagged, see above [Exploring an existing set of schemas](NEEDALINKHERE).
+<br/>
+
+The python tool will assist you into running the comparison process which will generate an output file containing the comparison results.
+<br/> That file can be read using the [compare-and-view tool]().
+
+
 
 ### Usage
-...
+In order to run a comparison you will have to use the ```FullDiffGenerator``` or  ```FullSemDiff```classes (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html))
 
 
 ## Merge schemas
 
 ### Story
-...
+Useful to import fields from another network.
+Keep in mind: merge order A in B is not B in A.
 
 ### Usage
 ...
