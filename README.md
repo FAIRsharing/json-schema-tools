@@ -71,8 +71,7 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 
 ## Exploring an existing set of schemas:
 
-### Use-case
-
+### Use-cases
 Whether you need to create your own set of interconnected schemas (we will call them networks) or explore existing ones, 
 you will need to visualize them.
 <br/> The [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript application that allows users to explore these networks directly in their browser
@@ -105,7 +104,7 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave the 
 
 ## Compare schemas
 
-### Use-case
+### Use-cases
 Comparing schemas can be particularly useful if you intend on creating metadata that comply with several models or to identify
 overlaps with existing networks when creating/extending set of schemas.
 <br/>
@@ -131,7 +130,7 @@ In order to run a comparison you will have to use the ```FullDiffGenerator``` or
 
 ## Merge schemas
 
-### Story
+### Use-cases
 Useful to import fields from another network.
 Keep in mind: merge order A in B is not B in A.
 
@@ -141,7 +140,7 @@ Keep in mind: merge order A in B is not B in A.
 
 ## Create new context files
 
-### Use-case
+### Use-cases
 ...
 
 ### Usage
@@ -150,7 +149,7 @@ Keep in mind: merge order A in B is not B in A.
 
 ## Export schemas in the CEDAR application
 
-### Use-case
+### Use-cases
 ...
 
 ### Usage
@@ -159,7 +158,7 @@ Keep in mind: merge order A in B is not B in A.
 
 ## Import and validate MiFlowCyt dataset
 
-### Use-case
+### Use-cases
 ...
 
 ### Usage
@@ -168,7 +167,7 @@ Keep in mind: merge order A in B is not B in A.
 
 ## (Optional) Identify circularity in schemas
 
-### Use-case
+### Use-cases
 ...
 
 ### Usage
