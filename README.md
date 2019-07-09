@@ -13,7 +13,7 @@ The JSON-Schema specification is an easy way to inform about the syntactic const
 semantic identifiers. In order to cope with this, the semantic constrains were separated from the syntactic ones by using context files inspired by the JSON-LD specification. 
 This separation of concerns has been greatly helpful to create a machine and human readable system for representing syntactic and semantic constrains.
 
-Separating syntactic and semantic layers:
+#### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
 
@@ -96,7 +96,7 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave the 
 For instance, if the application is deserved through port 8000, your url would be:
  ```localhost:8000/JSONschema-documenter?schema_url=path/to/main/schema.json&context_mapping_url=path/to/context/mapping/file.json```
 
-Screenshots of the MIACA network loaded in the jsonschema online documenter:
+#### Screenshots of the MIACA network loaded in the jsonschema online documenter:
 ![alt text](assets/documenter_miaca.png "Documenter loaded with MIACA schema")
 
 
