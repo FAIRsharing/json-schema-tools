@@ -6,12 +6,12 @@
 
 ## Introduction
 
-This project is about creating human and machine reabable models representing metadata semantic and syntactic shapes and providing a toolkit to help users deal with these schemas.
+This project is about creating human and machine readable models representing metadata semantic and syntactic shapes and providing a toolkit to help users deal with these schemas.
 In order to create these representations we chose one of the most common format used for exchanging data over the web: the JavaScript Object Notation (JSON).
 
-The JSON-Schema specification is an easy way to inform about the syntactic constrains an object is subject to, but becomes hardly readble by human when represented with 
+The JSON-Schema specification is an easy way to inform about the syntactic constrains an object is subject to, but becomes hardly readable by human when represented with 
 semantic identifiers. In order to cope with this, the semantic constrains were separated from the syntactic ones by using context files inspired by the JSON-LD specification. 
-This seperation of concerns has been greatly helpful to create a machine and human readble system for representing syntactic and semantic contrains.
+This separation of concerns has been greatly helpful to create a machine and human readable system for representing syntactic and semantic constrains.
 
 The input used to create the toolkit can be found as follow:
 - Minimum Information About Cell Assays: [MIACA](https://github.com/FAIRsharing/mircat/tree/master/miaca) 
@@ -29,7 +29,7 @@ using two separate javascript libraries that are presented below.
 4) Create new context files or extend existing ones
 5) Export schemas in the CEDAR application
 6) Import MiFlowCyt instances (dataset) as JSON-LD and validate them against the proper schema set (requires an API key)
-7) Identify circularities in existing set of schemas (using yet another python library)
+7) Identify circularity in existing set of schemas (using yet another python library)
 
 
 ## Setting Up:
@@ -38,6 +38,7 @@ First, you will need a virtual environment, import the code and install dependen
 ```
 virtualenv venv
 source venv/bin/activate
+git clone https://github.com/FAIRsharing/jsonldschema.git
 pip install -r requirements.txt
 ```
 
@@ -56,6 +57,8 @@ You will need to provide:
 - a valid user ID which will become the author of created content (UUID on your CEDAR user profile page, https://cedar.metadatacenter.org/profile)
 - a valid [Flow Repository](https://flowrepository.org/) API key.
 
+Integration tests are located under ```/tests/integration```. They rely on API calls and are excluded from the continuous integration builds.
+
 
 ## Exploring an existing set of schemas:
 
@@ -65,18 +68,21 @@ The [jsonschema documenter tool](https://github.com/FAIRsharing/JSONschema-docum
 will allows users to explore these networks directly in their browser by either downloading the application locally or using the online service.
 
 If your schemas are living remotely and are accessible through a URL, you can use the online tool directly by providing your main schema URL as a parameter to the tool. 
-To do that, add ?schema_url=yourURL at the end of the tool.
+To do that, add ```?schema_url=yourURL``` at the end of the tool.
 
-For instance, to view the MIACA network use this [URL](https://fairsharing.github.io/JSONschema-documenter?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json).
+For instance, to view the MIACA network the URL would be ```https://fairsharing.github.io/JSONschema-documenter?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json```
+
 If you also want to add the semantic constrains from the associated context files, you will have to provide a mapping file containing these references that can be generated 
-for you using the [schema2context.generate_context_mapping()](https://jsonldschema.readthedocs.io/en/latest/utils/schemaUtilities.html#schema2context.generate_context_mapping) class method. 
+for you using the ```schema2context.generate_context_mapping()``` class method (see [documentation](https://jsonldschema.readthedocs.io/en/latest/utils/schemaUtilities.html#schema2context.generate_context_mapping)). 
 You can then upload that mapping file (on github for instance) and provide its URL to the documenter. 
-For MIACA, we would have the following [URL](https://fairsharing.github.io/JSONschema-documenter/?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json&context_mapping_url=https://w3id.org/mircat/miacme/schema_context_mapping.json).
+For MIACA, we would have the following ```https://fairsharing.github.io/JSONschema-documenter/?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json&context_mapping_url=https://w3id.org/mircat/miacme/schema_context_mapping.json```.
 
 If the schemas are living locally only (which is usually the case during development), you can clone the jsonschema documenter repositorie and, optionnaly,
  put it under a web server (such as Apache, Nginx, ...). It will then bevahe the same way the online app works bu can resolved network locally if you provide path rather than URL. 
- If the application is deserved through port 8000, your url would be: localhost:8000/JSONschema-documenter?schema_url=path/to/main/schema.json&context_mapping_url=path/to/context/mapping/file.json
+ If the application is deserved through port 8000, your url would be:
+ ```localhost:8000/JSONschema-documenter?schema_url=path/to/main/schema.json&context_mapping_url=path/to/context/mapping/file.json```
 
+Screenshot of the MIACA network loaded in the jsonschema documenter:
 ![alt text](assets/documenter_miaca.png "Documenter loaded with MIACA schema")
 
 
