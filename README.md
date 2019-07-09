@@ -6,11 +6,11 @@
 
 ## Introduction
 
-This project is about creating human and machine readable models representing metadata semantic and syntactic shapes and providing a toolkit to help users deal with these schemas.
-In order to create these representations we chose one of the most common format used for exchanging data over the web: the JavaScript Object Notation (JSON).
+This project is about creating **human** and **machine readable models** representing **metadata semantic** and **syntactic shapes** and providing a toolkit to help users deal with these schemas.
+In order to create these representations we chose one of the most common format used for exchanging data over the web: the **JavaScript Object Notation (JSON)**.
 
-The JSON-Schema specification is an easy way to inform about the syntactic constrains an object is subject to, but becomes hardly readable by human when represented with 
-semantic identifiers. In order to cope with this, the semantic constrains were separated from the syntactic ones by using context files inspired by the JSON-LD specification. 
+The **JSON-Schema** specification is an easy way to inform about the syntactic constrains an object is subject to, but becomes hardly readable by human when represented with 
+semantic identifiers. In order to cope with this, the semantic constrains were separated from the syntactic ones by using context files inspired by the **JSON-LD** specification. 
 This separation of concerns has been greatly helpful to create a machine and human readable system for representing syntactic and semantic constrains.
 
 #### Separating syntactic and semantic layers:
@@ -22,16 +22,16 @@ This is very important, especially in the context of data Findability, Accessibi
 where a lot of representations are still too verbose and lack machine readable formats. 
 
 The input used to create the toolkit can be found as follow:
-- Minimum Information About Cell Assays: [MIACA](https://github.com/FAIRsharing/mircat/tree/master/miaca) 
-- Minimum Information About Cell Migration Experiments: [MIACME](https://github.com/FAIRsharing/mircat/tree/master/miacme)
-- Data Tag Suite: DATS [schemas](https://github.com/datatagsuite/schema) and [context](https://github.com/datatagsuite/context)
-- Minimum Information About Flow Cytometry Experiments: [MiFlowCyt](https://github.com/FAIRsharing/mircat/tree/master/miflowcyt)
+- Minimum Information About Cell Assays: **[MIACA](https://github.com/FAIRsharing/mircat/tree/master/miaca)** 
+- Minimum Information About Cell Migration Experiments: **[MIACME](https://github.com/FAIRsharing/mircat/tree/master/miacme)**
+- Data Tag Suite: **DATS** [schemas](https://github.com/datatagsuite/schema) and [context](https://github.com/datatagsuite/context)
+- Minimum Information About Flow Cytometry Experiments: **[MiFlowCyt](https://github.com/FAIRsharing/mircat/tree/master/miflowcyt)**
 
 This repository offers code to help users deal with these complexes schemas. It also output particular variables that can we represented in the browser 
 using two separate javascript libraries that are presented below.
 
-1) Setting up
-1) Explore existing schemas in the browser (requires the jsonschema documenter)
+1) [Setting up](#setting-up)
+1) [Explore existing schemas in the browser](#exploring-an-existing-set-of-schemas) (requires the jsonschema documenter)
 2) Compare schemas in the browser (requires the compare-and-view tool)
 3) Merge schemas
 4) Create new context files or extend existing ones
@@ -117,7 +117,7 @@ To verify if all fields are correctly tagged, see above [Exploring an existing s
 <br/>
 
 The python tool will assist you into running the comparison process which will generate an output file containing the comparison results.
-<br/> That file can be read using the [compare-and-view tool]().
+<br/> In order to visualize the results, you will need to use a second javascript application, the [compare-and-view]() tool.
 
 
 
