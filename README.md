@@ -16,9 +16,9 @@ This separation of concerns has been greatly helpful to create a machine and hum
 #### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
-The purpose of building these representation is to allow for machine to automatically understand, assess and validates items given a shape while 
-still providing human friendly supports.
-This is very important, especially in the context of data Findability, Accessibility, Integrability and Reusablity (FAIR) context 
+The purpose of building these representation is to allow for machine to automatically understand, assess and validates items 
+given a semantics and syntactics constrains while still providing human friendly supports.
+This is very important, especially in the context of data Findability, Accessibility, Integrability and Reusablity (FAIR) 
 where a lot of representations are still too verbose and lack machine readable formats. 
 
 The input used to create the toolkit can be found as follow:
