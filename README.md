@@ -86,16 +86,66 @@ for you using the ```schema2context.generate_context_mapping()``` class method (
 You can then upload that mapping file (on github for instance) and provide its URL to the documenter. 
 For MIACA, we would have the following ```https://fairsharing.github.io/JSONschema-documenter/?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json&context_mapping_url=https://w3id.org/mircat/miacme/schema_context_mapping.json```.
 
-If the schemas are living locally only (which is usually the case during development), you can clone the jsonschema documenter repositorie and, optionnaly,
- put it under a web server (such as Apache, Nginx, ...). It will then behave the same way the online app works bu can resolved network locally if you provide path rather than URL. 
- If the application is deserved through port 8000, your url would be:
+If the schemas are living locally only (which is usually the case during development), you can clone the JSON-Schema documenter repository and, optionally,
+put it under a web server (such as Apache, Nginx, ...). It will then behave the same way the online service does but can resolve local networks.
+For instance, if the application is deserved through port 8000, your url would be:
  ```localhost:8000/JSONschema-documenter?schema_url=path/to/main/schema.json&context_mapping_url=path/to/context/mapping/file.json```
 
-Screenshots of the MIACA network loaded in the jsonschema documenter:
+Screenshots of the MIACA network loaded in the jsonschema online documenter:
 ![alt text](assets/documenter_miaca.png "Documenter loaded with MIACA schema")
 
 
 ## Compare schemas
+
+### Story
+...
+
+### Usage
+...
+
+
+## Merge schemas
+
+### Story
+...
+
+### Usage
+...
+
+
+## Create new context files
+
+### Story
+...
+
+### Usage
+...
+
+
+## Export schemas in the CEDAR application
+
+### Story
+...
+
+### Usage
+...
+
+
+## Import and validate MiFlowCyt dataset
+
+### Story
+...
+
+### Usage
+...
+
+
+## (Optional) Identify circularity in schemas
+
+### Story
+...
+
+### Usage
 ...
 
 
