@@ -18,7 +18,7 @@ This separation of concerns has been greatly helpful to create a machine and hum
 
 The purpose of building these representation is to allow for machine to automatically understand, assess and validates items 
 given a semantics and syntactics constrains while still providing human friendly supports.
-This is very important, especially in the context of data Findability, Accessibility, Integrability and Reusablity (FAIR) 
+<br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 where a lot of representations are still too verbose and lack machine readable formats. 
 
 The input used to create the toolkit can be found as follow:
@@ -75,7 +75,7 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 
 Whether you need to create your own set of interconnected schemas (we will call them networks) or explore existing ones, 
 you will need to visualize them.
-The [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript application that allows users to explore these networks directly in their browser
+<br/> The [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript application that allows users to explore these networks directly in their browser
 by either downloading the application locally or using the online service.
 
 Exploring networks with the JSON-Schema documenter allows you to identify reusable components (simple objects such as Person and Organization have already been described) and to verify that:
@@ -86,17 +86,16 @@ Exploring networks with the JSON-Schema documenter allows you to identify reusab
 ### Usage
 If your schemas are living remotely and are accessible through a URL, you can use the online tool directly by providing your main schema URL as a parameter to the tool. 
 To do that, add ```?schema_url=yourURL``` at the end of the tool.
-
-For instance, to view the MIACA network the URL would be ```https://fairsharing.github.io/JSONschema-documenter?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json```
+<br/> For instance, to view the MIACA network the URL would be ```https://fairsharing.github.io/JSONschema-documenter?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json```
 
 If you also want to add the semantic constrains from the associated context files, you will have to provide a mapping file containing these references that can be generated 
 for you using the ```schema2context.generate_context_mapping()``` class method (see [documentation](https://jsonldschema.readthedocs.io/en/latest/utils/schemaUtilities.html#schema2context.generate_context_mapping)). 
-You can then upload that mapping file (on github for instance) and provide its URL to the documenter. 
-For MIACA, we would have the following ```https://fairsharing.github.io/JSONschema-documenter/?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json&context_mapping_url=https://w3id.org/mircat/miacme/schema_context_mapping.json```.
+<br/> You can then upload that mapping file (on github for instance) and provide its URL to the documenter. 
+<br/> For MIACA, we would have the following ```https://fairsharing.github.io/JSONschema-documenter/?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json&context_mapping_url=https://w3id.org/mircat/miacme/schema_context_mapping.json```.
 
 If the schemas are living locally only (which is usually the case during development), you can clone the JSON-Schema documenter repository and, optionally,
 put it under a web server (such as Apache, Nginx, ...). It will then behave the same way the online service does but can resolve local networks.
-For instance, if the application is deserved through port 8000, your url would be:
+<br/>For instance, if the application is deserved through port 8000, your url would be:
  ```localhost:8000/JSONschema-documenter?schema_url=path/to/main/schema.json&context_mapping_url=path/to/context/mapping/file.json```
 
 #### Screenshots of the MIACA network loaded in the jsonschema online documenter:
@@ -113,7 +112,7 @@ The key point to understand before comparing schemas or networks is that the com
 in context files. This means that a field or an object that does not have a semantic attribute will be ignored. This also involves 
 that syntactic constrains are completely ignored.
 <br/>
-To verify if all fields are correctly tagged, see above [Exploring an existing set of schemas](NEEDALINKHERE).
+To verify if all fields are correctly tagged, see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-schemas).
 <br/>
 
 The python tool will assist you into running the comparison process which will generate an output file containing the comparison results.
