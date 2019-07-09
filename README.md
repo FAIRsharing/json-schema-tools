@@ -6,8 +6,9 @@
 
 ## Introduction
 
-This project is about creating **human** and **machine readable models** representing **metadata semantic** and **syntactic shapes** and providing a toolkit to help users deal with these schemas.
-In order to create these representations we chose one of the most common format used for exchanging data over the web: the **JavaScript Object Notation (JSON)**.
+This project is about creating **human** and **machine readable models** representing **semantic** and **syntactic constrains** of metadata and providing a toolkit to 
+help users deal (create, extend, compare, merge, export, ...) with these schemas.
+<br/> In order to create these representations we chose one of the most common format used for exchanging data over the web: the **JavaScript Object Notation (JSON)**.
 
 The **JSON-Schema** specification is an easy way to inform about the syntactic constrains an object is subject to, but becomes hardly readable by human when represented with 
 semantic identifiers. In order to cope with this, the semantic constrains were separated from the syntactic ones by using context files inspired by the **JSON-LD** specification. 
@@ -107,23 +108,29 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave the 
 ### Use-cases
 Comparing schemas can be particularly useful if you intend on creating metadata that comply with several models or to identify
 overlaps with existing networks when creating/extending set of schemas.
+<br/> The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
+in context files. This means that will be ignored:
+1) Fields and objects that don't have a semantic values
+2) Syntactic constrains (could be extended) 
+
+Note: to verify if all fields are correctly tagged with an ontology term, see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-schemas).
 <br/>
-The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
-in context files. This means that a field or an object that does not have a semantic attribute will be ignored. This also involves 
-that syntactic constrains are completely ignored.
-<br/>
-To verify if all fields are correctly tagged, see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-schemas).
-<br/>
 
-The python tool will assist you into running the comparison process which will generate an output file containing the comparison results.
-<br/> In order to visualize the results, you will need to use a second javascript application, the [compare-and-view](https://github.com/FAIRsharing/JSONschema-compare-and-view) tool.
+The python tool will assist you into running the comparison process which will generate an output file containing the comparison results. However, 
+to visualize the results, you will need to use a second javascript application, the [compare-and-view](https://github.com/FAIRsharing/JSONschema-compare-and-view) tool.
+<br/> A particularity of this tool is that it relies on the Ontology Lookup Service ([OLS](https://www.ebi.ac.uk/ols/index)) API to find the corresponding human readable terms. For instance
+```NCBITaxon_9606``` is also shown as ```homo sapien``` when displaying a planned process source in the context of MIACA and MIACME (see figure [below](#screenshots-of-the-miaca-network-loaded-in-the-jsonschema-online-documenter)).
 
-
-
-https://fairsharing.github.io/JSONschema-compare-and-view/?target=inputs/MIACA_VS_MIACME.json
 
 ### Usage
-In order to run a comparison you will have to use the ```FullDiffGenerator``` or  ```FullSemDiff```classes (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html))
+In order to run a comparison between two networks you will have to use the ```FullDiffGenerator``` or  ```FullSemDiff```classes (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html))
+based on your use case. Optionally, you can also run a schema comparison with the ```EntityCoverage``` class 
+(see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semanticComparator.html))
+if you are working on a specific schema and don't want to resolve the full networks.
+<br> The comparison process is not very intensive but may require to resolve all schemas in the two given networks. This process 
+can be long depending on the number and size of the schemas and the properties of the server delivering them.
+
+<br/> These three class will generate a variable containing all overlapping fields and/or schemas, which is not very useful as such.
 
 #### Screenshots of the comparison display between MIACA and MIACME
 ![alt text](assets/comparator.png "Comparison between MIACA and MIACME")
