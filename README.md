@@ -5,8 +5,8 @@
 
 
 ## Machine Actionable Metadata Models
-One of the most common format to exchange data over the web in the **JavaScript Object notation** (**JSON**). It's a popular open-standard
-that can be used to represent data and metadata instances as well as the constrains describing an object (also called **schema**).
+One of the most common format to exchange data over the web in the **JavaScript Object Notation** (**JSON**). It's a popular open-standard
+that can be used to represent data and metadata instances and the constrains that should be applied to describe these object (also called **schema**).
 <br/> Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
 description, values allowed, cardinality, references to other schemas, ect ....
 <br/>They are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
@@ -15,9 +15,10 @@ hardly human readable. To emphasise this phenomena, semantic constrains for mach
 #### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
-In order to cope with the semantic and syntactic concerns, schemas were separated using context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
-files (through mapping files) that deliver the ontology tags describing the object properties.
-<br/> The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export these schemas and their associated context files in order to 
+In order to cope with the semantic and syntactic constrains, the semantic layer was separated from the schemas and included in context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
+files (through mapping files) that deliver the ontology tags describing the object and its properties. This allows to easily extend an existing schema or network with new vocabulary terms and to have different vocabulary systems living side by side.
+
+The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export these schemas and their associated context files in order to 
 increase the existing pool of **machine** and **human readable models** that represent **syntactic** and **semantic constrains of metadata**.
 <br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 where a lot of representations are still too verbose and lack machine readable formats. 
@@ -75,7 +76,8 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 ## Exploring an existing set of schemas:
 
 ### Use-cases
-Whether you need to create your own set of interconnected schemas or explore existing ones, you will need to visualize them.
+In many cases, before anything, you will need to explore existing networks and navigate between their schemas and context files. This process is extremely long and  
+Whether you need to create your own set of interconnected schemas or explore existing ones, the first you will need is to explore the network and understand the links between the different schemas.
 <br/> The [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript client-side application that 
 allows users to explore these networks directly in their browser by either downloading the application locally or using the online service.
 
@@ -113,6 +115,9 @@ overlaps with existing networks** when creating/extending set of schemas.
 in context files. This means that will be ignored:
 1) Fields and objects that don't have a semantic values
 2) Syntactic constrains (could be extended) 
+
+This implies that schemas should be compared within the scope of the same contexts. Comparing a schema.org representation with an
+obo representation may lead to unexpected results or no result at all.
 
 Note: to verify if all fields are correctly tagged with an ontology term, see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-schemas).
 <br/>
