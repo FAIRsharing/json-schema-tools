@@ -7,6 +7,7 @@
 ## Machine Actionable Metadata Models
 One of the most common format to exchange data over the web in the **JavaScript Object notation** (**JSON**). It's a popular open-standard
 that can be used to represent data and metadata instances as well as the constrains describing an object (also called **schema**).
+
 Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
 description, values allowed, cardinality, references to other schemas, ect ....
 <br/> Schemas are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
@@ -17,8 +18,8 @@ hardly human readable. To emphasise this phenomena, semantic constrains for mach
 
 In order to cope with the semantic and syntactic concerns, schemas were separated using context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
 files (through mapping files) that deliver the ontology tags describing the object properties.
-<br/> The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export these schemas in order to increase the existing pool 
-of **machine** and **human readable models** that represent **syntactic** and **semantic constrains of metadata**.
+<br/> The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export these schemas and their associated context files in order to 
+increase the existing pool of **machine** and **human readable models** that represent **syntactic** and **semantic constrains of metadata**.
 <br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 where a lot of representations are still too verbose and lack machine readable formats. 
 
