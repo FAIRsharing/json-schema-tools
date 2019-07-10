@@ -76,14 +76,17 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 ## Exploring an existing set of schemas:
 
 ### Use-cases
-In many cases, before anything, you will need to explore existing networks and navigate between their schemas and context files. This process is extremely long and  
-Whether you need to create your own set of interconnected schemas or explore existing ones, the first you will need is to explore the network and understand the links between the different schemas.
-<br/> The [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript client-side application that 
-allows users to explore these networks directly in their browser by either downloading the application locally or using the online service.
+When you create or extend set of schemas, you need to understand the information that is being represented. This usually means a lot of navigation between the interconnected schemas
+and context files within that network. For instance, understanding the knowledge of a single property involves opening the corresponding schema file, locating the field and identifying its optional references to other structures. You also
+need to locate the corresponding context files, open them, locate the term and look up it's ontology value in a lookup service. And you need to repeat that process for each reference within that field.
+<br/> We have written a javascript client side application, the [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter), that does all that for you and 
+display the fully resolved network directly in the browser.
 
-Exploring networks with the JSON-Schema documenter allows you to identify reusable components (simple objects such as Person and Organization have already been described) and to verify that:
-- relationships between schemas and syntactic constrains are represented as expected
-- each field is correctly tagged with a semantic label (e.g.: ```name``` is labelled with ```sdo:name```)
+The Documenter will allow you to:
+- explore the properties of each schema
+- verify that each field is correctly tagged with a resolvable ontology term identifier (e.g.: ```name``` is labelled with ```sdo:name```)
+- navigate through the relationships between the different schemas
+- identify the reusable components created by other communities (you may want to reuse them rather than fully recreate them from scratch)
 
 
 ### Usage
