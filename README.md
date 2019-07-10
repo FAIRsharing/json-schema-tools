@@ -4,32 +4,34 @@
 [![Documentation Status](https://readthedocs.org/projects/jsonldschema/badge/?version=latest)](https://jsonldschema.readthedocs.io/en/latest/?badge=latest)
 
 
-## Introduction
-
-This project is about creating **human** and **machine readable models** representing **semantic** and **syntactic constrains** of metadata and providing a toolkit to 
-help users deal (create, extend, compare, merge, export, ...) with these schemas.
-<br/> In order to create these representations we chose one of the most common format used for exchanging data over the web: the **JavaScript Object Notation (JSON)**.
-
-The **JSON-Schema** specification is an easy way to inform about the syntactic constrains an object is subject to, but becomes hardly readable by human when represented with 
-semantic identifiers. In order to cope with this, the semantic constrains were separated from the syntactic ones by using context files inspired by the **JSON-LD** specification. 
-This separation of concerns has been greatly helpful to create a machine and human readable system for representing syntactic and semantic constrains.
+## Machine Actionable Metadata Models
+One of the most common format to exchange data over the web in the JavaScript Object notation (JSON). It's a popular open-standard
+that can be used to represent data and metadata instances as well as the constrains describing an object (also called schema).
+Schemas are built using the JSON-Schema standard which informs about the syntactic constrains of an object: properties name, 
+description, values allowed, cardinality, references to other schemas, ect ....
+<br/> Schemas are highly interconnected and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
+hardly human readable. To emphasise this phenomena, semantic constrains for machine readability that should also be taken into consideration create an even more complex specification.
 
 #### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
-The purpose of building these representation is to allow for machine to automatically understand, assess and validates items 
-given a semantics and syntactics constrains while still providing human friendly supports.
+In order to cope with the semantic and syntactic concerns, schemas were separated using context files inspired by the JSON-LD specification. Each schema is bound to a set of context 
+files (through mapping files) that deliver the ontology tags describing the object properties.
+<br/> The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export these schemas in order to increase the existing pool 
+of machine and human readable models that represent syntactic and semantic constrains of metadata.
 <br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 where a lot of representations are still too verbose and lack machine readable formats. 
 
-The input used to create the toolkit can be found as follow:
+
+#### Inputs
+The input schema networks used to create the toolkit can be found as follow:
 - Minimum Information About Cell Assays: **[MIACA](https://github.com/FAIRsharing/mircat/tree/master/miaca)** 
 - Minimum Information About Cell Migration Experiments: **[MIACME](https://github.com/FAIRsharing/mircat/tree/master/miacme)**
 - Data Tag Suite: **DATS** [schemas](https://github.com/datatagsuite/schema) and [context](https://github.com/datatagsuite/context)
 - Minimum Information About Flow Cytometry Experiments: **[MiFlowCyt](https://github.com/FAIRsharing/mircat/tree/master/miflowcyt)**
 
-This repository offers code to help users deal with these complexes schemas. It also output particular variables that can we represented in the browser 
-using two separate javascript libraries that are presented below.
+
+#### Navigation
 
 1) [Setting up](#setting-up)
 1) [Explore existing schemas in the browser](#exploring-an-existing-set-of-schemas) (requires the jsonschema documenter)
