@@ -9,8 +9,7 @@ One of the most common format to exchange data over the web in the **JavaScript 
 that can be used to represent data and metadata instances as well as the constrains describing an object (also called **schema**).
 <br/> Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
 description, values allowed, cardinality, references to other schemas, ect ....
-
-Schemas are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
+<br/>They are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
 hardly human readable. To emphasise this phenomena, semantic constrains for machine readability that should also be taken into consideration create an even more complex specification.
 
 #### Separating syntactic and semantic layers:
