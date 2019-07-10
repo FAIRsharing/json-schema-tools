@@ -5,20 +5,20 @@
 
 
 ## Machine Actionable Metadata Models
-One of the most common format to exchange data over the web in the JavaScript Object notation (JSON). It's a popular open-standard
-that can be used to represent data and metadata instances as well as the constrains describing an object (also called schema).
-Schemas are built using the JSON-Schema standard which informs about the syntactic constrains of an object: properties name, 
+One of the most common format to exchange data over the web in the **JavaScript Object notation** (**JSON**). It's a popular open-standard
+that can be used to represent data and metadata instances as well as the constrains describing an object (also called **schema**).
+Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
 description, values allowed, cardinality, references to other schemas, ect ....
-<br/> Schemas are highly interconnected and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
+<br/> Schemas are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
 hardly human readable. To emphasise this phenomena, semantic constrains for machine readability that should also be taken into consideration create an even more complex specification.
 
 #### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
-In order to cope with the semantic and syntactic concerns, schemas were separated using context files inspired by the JSON-LD specification. Each schema is bound to a set of context 
+In order to cope with the semantic and syntactic concerns, schemas were separated using context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
 files (through mapping files) that deliver the ontology tags describing the object properties.
 <br/> The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export these schemas in order to increase the existing pool 
-of machine and human readable models that represent syntactic and semantic constrains of metadata.
+of **machine** and **human readable models** that represent **syntactic** and **semantic constrains of metadata**.
 <br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 where a lot of representations are still too verbose and lack machine readable formats. 
 
@@ -108,8 +108,8 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave the 
 ## Compare schemas
 
 ### Use-cases
-Comparing schemas can be particularly useful if you intend on creating metadata that comply with several models or to identify
-overlaps with existing networks when creating/extending set of schemas.
+Comparing schemas can be particularly useful if you intend on creating **metadata that comply with several models** or to **identify
+overlaps with existing networks** when creating/extending set of schemas.
 <br/> The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
 in context files. This means that will be ignored:
 1) Fields and objects that don't have a semantic values
@@ -150,7 +150,8 @@ Keep in mind: merge order A in B is not B in A.
 ## Create new context files
 
 ### Use-cases
-...
+Extend an existing network to a new vocabulary.
+<br/> Create the mapping for other functions (the documenter for instance).
 
 ### Usage
 ...
