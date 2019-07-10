@@ -75,10 +75,9 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 ## Exploring an existing set of schemas:
 
 ### Use-cases
-Whether you need to create your own set of interconnected schemas (we will call them networks) or explore existing ones, 
-you will need to visualize them.
-<br/> The [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript application that allows users to explore these networks directly in their browser
-by either downloading the application locally or using the online service.
+Whether you need to create your own set of interconnected schemas or explore existing ones, you will need to visualize them.
+<br/> The [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter) is a javascript client-side application that 
+allows users to explore these networks directly in their browser by either downloading the application locally or using the online service.
 
 Exploring networks with the JSON-Schema documenter allows you to identify reusable components (simple objects such as Person and Organization have already been described) and to verify that:
 - relationships between schemas and syntactic constrains are represented as expected
@@ -86,13 +85,13 @@ Exploring networks with the JSON-Schema documenter allows you to identify reusab
 
 
 ### Usage
-If your schemas are living remotely and are accessible through a URL, you can use the online tool directly by providing your main schema URL as a parameter to the tool. 
-To do that, add ```?schema_url=yourURL``` at the end of the tool.
+If your schemas are living remotely and are accessible through a URL, you can use the [online tool](https://fairsharing.github.io/JSONschema-documenter/) directly by providing your main 
+schema URL as a parameter to the tool URL. To do that, add ```?schema_url=yourURL``` at the end of the tool.
 <br/> For instance, to view the MIACA network the URL would be ```https://fairsharing.github.io/JSONschema-documenter?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json```
 
-If you also want to add the semantic constrains from the associated context files, you will have to provide a mapping file containing these references that can be generated 
+If you also want to add the semantic constrains pulled from the associated context files, you will have to provide a mapping file containing these references that can be generated 
 for you using the ```schema2context.generate_context_mapping()``` class method (see [documentation](https://jsonldschema.readthedocs.io/en/latest/utils/schemaUtilities.html#schema2context.generate_context_mapping)). 
-<br/> You can then upload that mapping file (on github for instance) and provide its URL to the documenter. 
+You can then upload that mapping file (on github for instance) and provide its URL  as another parameter to the documenter. 
 <br/> For MIACA, we would have the following ```https://fairsharing.github.io/JSONschema-documenter/?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json&context_mapping_url=https://w3id.org/mircat/miacme/schema_context_mapping.json```.
 
 If the schemas are living locally only (which is usually the case during development), you can clone the JSON-Schema documenter repository and, optionally,
