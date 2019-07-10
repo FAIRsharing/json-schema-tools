@@ -7,10 +7,10 @@
 ## Machine Actionable Metadata Models
 One of the most common format to exchange data over the web in the **JavaScript Object notation** (**JSON**). It's a popular open-standard
 that can be used to represent data and metadata instances as well as the constrains describing an object (also called **schema**).
-
-Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
+<br/> Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
 description, values allowed, cardinality, references to other schemas, ect ....
-<br/> Schemas are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
+
+Schemas are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
 hardly human readable. To emphasise this phenomena, semantic constrains for machine readability that should also be taken into consideration create an even more complex specification.
 
 #### Separating syntactic and semantic layers:
