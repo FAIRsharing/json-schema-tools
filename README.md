@@ -5,10 +5,10 @@
 
 
 ## Machine Actionable Metadata Models
-One of the most common format to exchange data over the web in the **JavaScript Object Notation** (**JSON**). It's a popular open-standard
-that can be used to represent data and metadata instances and the constrains that should be applied to describe these object (also called **schema**).
+One of the most common format to exchange data over the web is the **JavaScript Object Notation** (**JSON**). It's a popular open-standard
+that can be used to represent data and metadata instances and the constrains that should be applied to describe these object (also called **schemas**).
 <br/> Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
-description, values allowed, cardinality, references to other schemas, ect ....
+description, allowed values, cardinality, references to other schemas, ect ....
 <br/>They are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
 hardly human readable. To emphasise this phenomena, semantic constrains for machine readability that should also be taken into consideration create an even more complex specification.
 
@@ -16,7 +16,8 @@ hardly human readable. To emphasise this phenomena, semantic constrains for mach
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
 In order to cope with the semantic and syntactic constrains, the semantic layer was separated from the schemas and included in context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
-files (through mapping files) that deliver the ontology tags describing the object and its properties. This allows to easily extend an existing schema or network with new vocabulary terms and to have different vocabulary systems living side by side.
+files (through mapping files) that deliver the ontology tags describing the object and its properties. This allows to easily extend an existing schema or network with new vocabulary terms and to have different vocabulary systems 
+living side by side.
 
 The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export these schemas and their associated context files in order to 
 increase the existing pool of **machine** and **human readable models** that represent **syntactic** and **semantic constrains of metadata**.
@@ -76,17 +77,20 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 ## Exploring an existing set of schemas:
 
 ### Use-cases
-When you create or extend set of schemas, you need to understand the information that is being represented. This usually means a lot of navigation between the interconnected schemas
-and context files within that network. For instance, understanding the knowledge of a single property involves opening the corresponding schema file, locating the field and identifying its optional references to other structures. You also
-need to locate the corresponding context files, open them, locate the term and look up it's ontology value in a lookup service. And you need to repeat that process for each reference within that field.
+When you extend or explore set of schemas, whether you are a community trying to create their own specifications, or a data producer trying to comply with a model,
+you need to understand the information that is being represented. This usually means a lot of navigation between the interconnected schemas
+and context files within that network. For instance, understanding the knowledge of a single property involves opening the corresponding schema file, locating the field and identifying its optional references to other structures. 
+You also need to locate the corresponding context files, open them, locate the term and search for it's ontology identifier in a lookup service. And you need to repeat that process for each field of each reference within that field,
+and, optionally for each vocabulary system.
 <br/> We have written a javascript client side application, the [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter), that does all that for you and 
 display the fully resolved network directly in the browser.
 
 The Documenter will allow you to:
-- explore the properties of each schema
-- verify that each field is correctly tagged with a resolvable ontology term identifier (e.g.: ```name``` is labelled with ```sdo:name```)
-- navigate through the relationships between the different schemas
-- identify the reusable components created by other communities (you may want to reuse them rather than fully recreate them from scratch)
+- explore the detailed properties of each schema;
+- verify that each field is correctly tagged with a resolvable ontology term identifier (e.g.: the ```name``` field of a ```Person``` object is labelled with ```http://purl.obolibrary.org/obo/IAO_0000590``` 
+which resolves to ```written name```);
+- navigate through bi-directional relationships between the different schemas (parent <-> child);
+- identify the reusable components created by other communities so you don't have to reinvent the wheel.
 
 
 ### Usage
@@ -113,22 +117,18 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave the 
 
 ### Use-cases
 Comparing schemas can be particularly useful if you intend on creating **metadata that comply with several models** or to **identify
-overlaps with existing networks** when creating/extending set of schemas.
+overlaps with existing networks** when creating or extending set of schemas.
 <br/> The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
-in context files. This means that will be ignored:
-1) Fields and objects that don't have a semantic values
-2) Syntactic constrains (could be extended) 
-
-This implies that schemas should be compared within the scope of the same contexts. Comparing a schema.org representation with an
-obo representation may lead to unexpected results or no result at all.
-
-Note: to verify if all fields are correctly tagged with an ontology term, see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-schemas).
-<br/>
+in context files. This implies that:
+1) Fields and objects without semantic values will never match anything and will be ignored. To verify if all fields are correctly tagged with an ontology term, 
+see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-schemas).
+2) Syntactic constrains are ignored when comparing: only the semantic constrains are being considered.
+3) Comparisons should be ran within the same contexts: using a schema.org on the one hand, versus a obo markup on the other, will very likely lead to no results.
 
 The python tool will assist you into running the comparison process which will generate an output file containing the comparison results. However, 
 to visualize the results, you will need to use a second javascript application, the [compare-and-view](https://github.com/FAIRsharing/JSONschema-compare-and-view) tool.
-<br/> A particularity of this tool is that it relies on the Ontology Lookup Service ([OLS](https://www.ebi.ac.uk/ols/index)) API to find the corresponding human readable terms. For instance
-```NCBITaxon_9606``` is also shown as ```homo sapien``` when displaying a planned process source in the context of MIACA and MIACME (see figure [below](#screenshots-of-the-miaca-network-loaded-in-the-jsonschema-online-documenter)).
+<br/> A particularity of this tool is that it relies on the Ontology Lookup Service ([OLS](https://www.ebi.ac.uk/ols/index)) API to resolve the machine readable identifier into human readable strings. For instance
+```NCBITaxon_9606``` is also shown as ```homo sapien``` when displaying a ```planned process source``` in the context of MIACA and MIACME (see figure [below](#screenshots-of-the-miaca-network-loaded-in-the-jsonschema-online-documenter)).
 
 
 ### Usage
@@ -157,8 +157,8 @@ Keep in mind: merge order A in B is not B in A.
 ## Create new context files
 
 ### Use-cases
-Extend an existing network to a new vocabulary.
-<br/> Create the mapping for other functions (the documenter for instance).
+For communities who found a schemas network that describes their needs but consider that the ontology used are not relevant, the easiest route is to extend
+rather than recreate. The functionality provided here will help you into generating new context and mapping files so that you can add as many ontology terms as you need.
 
 ### Usage
 ...
