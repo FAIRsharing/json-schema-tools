@@ -7,26 +7,33 @@
 ## Machine Actionable Metadata Models
 One of the most common format to exchange data over the web is the **JavaScript Object Notation** (**JSON**). It's a popular open-standard
 that can be used to represent data and metadata instances and the constrains that should be applied to describe these object (also called **schemas**).
-<br/> Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
+
+Schemas are built using the **JSON-Schema** standard which informs about the syntactic constrains of an object: properties name, 
 description, allowed values, cardinality, references to other schemas, ect ....
-<br/>They are **highly interconnected** and can even contain circularity. This allows to represent very complex structures (called networks in this documentation), which, however, may become
-hardly human readable. To emphasise this phenomena, semantic constrains for machine readability that should also be taken into consideration create an even more complex specification.
+<br/> They rely on the powerful ```$ref``` keyword to references other schemas, creating very complex oriented cyclic graphs where each
+node is a schema and each vertices is a relationship between two schemas (in other words, a property). In this documentation we will refer to these interconnected structures
+ as **networks**. 
+
+Networks allow to represent very dense structures which may become hardly human readable when the numbers of properties and relationships
+reach certain thresholds.
+<br/>To emphasise this phenomena, semantic constrains for machine readability that should also be taken into consideration create an even more complex specification.
+Semantics constrains are contextual elements that reduce ambiguity, allowing machine to understand the meaning of the information.
 
 #### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
-In order to cope with the semantic and syntactic constrains, the semantic layer was separated from the schemas and included in context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
-files (through mapping files) that deliver the ontology tags describing the object and its properties. This allows to easily extend an existing schema or network with new vocabulary terms and to have different vocabulary systems 
+In order to cope with both semantic and syntactic concerns, the semantic layer was separated from the schemas and included in context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
+files (through mapping files) that deliver the ontology tags describing the object and its properties. This allows to easily extend an existing schema or network with new vocabulary terms and to have different ontology 
 living side by side.
 
-The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export these schemas and their associated context files in order to 
-increase the existing pool of **machine** and **human readable models** that represent **syntactic** and **semantic constrains of metadata**.
+The purpose of this repository is to provide a python 3 toolkit that help users create, compare, merge and export schemas and their associated context files in order to 
+increase the existing pool of **machine** and **human readable models** that describe the **syntactic** and **semantic constrains** of an object **metadata**.
 <br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 where a lot of representations are still too verbose and lack machine readable formats. 
 
 
 #### Inputs
-The input schema networks used to create the toolkit can be found as follow:
+The input networks used to create the toolkit can be found as follow:
 - Minimum Information About Cell Assays: **[MIACA](https://github.com/FAIRsharing/mircat/tree/master/miaca)** 
 - Minimum Information About Cell Migration Experiments: **[MIACME](https://github.com/FAIRsharing/mircat/tree/master/miacme)**
 - Data Tag Suite: **DATS** [schemas](https://github.com/datatagsuite/schema) and [context](https://github.com/datatagsuite/context)
@@ -79,7 +86,8 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 ### Use-cases
 When you extend or explore set of schemas, whether you are a community trying to create their own specifications, or a data producer trying to comply with a model,
 you need to understand the information that is being represented. This usually means a lot of navigation between the interconnected schemas
-and context files within that network. For instance, understanding the knowledge of a single property involves opening the corresponding schema file, locating the field and identifying its optional references to other structures. 
+and context files within that network. 
+<br/>For instance, understanding the knowledge of a single property involves opening the corresponding schema file, locating the field and identifying its optional references to other structures. 
 You also need to locate the corresponding context files, open them, locate the term and search for it's ontology identifier in a lookup service. And you need to repeat that process for each field of each reference within that field,
 and, optionally for each vocabulary system.
 <br/> We have written a javascript client side application, the [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter), that does all that for you and 
@@ -89,8 +97,8 @@ The Documenter will allow you to:
 - explore the detailed properties of each schema;
 - verify that each field is correctly tagged with a resolvable ontology term identifier (e.g.: the ```name``` field of a ```Person``` object is labelled with ```http://purl.obolibrary.org/obo/IAO_0000590``` 
 which resolves to ```written name```);
-- navigate through bi-directional relationships between the different schemas (parent <-> child);
-- identify the reusable components created by other communities so you don't have to reinvent the wheel.
+- navigate through the bi-directional relationships between the different schemas;
+- identify reusable components created by other communities so you don't have to reinvent the wheel.
 
 
 ### Usage
@@ -147,8 +155,20 @@ can be long depending on the number and size of the schemas and the properties o
 ## Merge schemas
 
 ### Use-cases
-Useful to import fields from another network.
-Keep in mind: merge order A in B is not B in A.
+Merging is the logical extension of the comparison functions. It will help you **import properties** from one schema/network to another without
+manual processing.
+
+The way the merge is implemented relies on the output of the comparison. If two schemas are labelled with the same ontology identifier
+they can be merged. The algorithm will pull all fields from the second schema and recursively add them to the first if they are 
+not already there (including the references and the context files).
+<br/> The most important consequence to that is the merge order will have a high impact on the final output: merging B into A or A into B will not generate
+the same result.
+
+If you are creating a network and wish to import some properties, you need to create the base schema () and add it to you network through a reference.
+ Identify the ontology term that this object will be labelled with (it need to be the same as the schema you want to import) 
+ and add it to the corresponding context file. When running the merge, the object, its references and their respective context files will be
+ added to the output.
+ <br/> Note: the input is never modified, a third network is created for you instead.
 
 ### Usage
 ...
