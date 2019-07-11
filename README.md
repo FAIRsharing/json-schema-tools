@@ -136,7 +136,10 @@ see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-s
 The python tool will assist you into running the comparison process which will generate an output file containing the comparison results. However, 
 to visualize the results, you will need to use a second javascript application, the [compare-and-view](https://github.com/FAIRsharing/JSONschema-compare-and-view) tool.
 <br/> A particularity of this tool is that it relies on the Ontology Lookup Service ([OLS](https://www.ebi.ac.uk/ols/index)) API to resolve the machine readable identifier into human readable strings. For instance
-```NCBITaxon_9606``` is also shown as ```homo sapien``` when displaying a ```planned process source``` in the context of MIACA and MIACME (see figure [below](#screenshots-of-the-miaca-network-loaded-in-the-jsonschema-online-documenter)).
+```NCBITaxon_9606``` is also shown as ```homo sapiens``` when displaying the ```source``` of a ```planned process``` in the context of MIACA and MIACME (see figure [below](#screenshots-of-the-miaca-network-loaded-in-the-jsonschema-online-documenter)).
+<br/> This is key to understand the definition held by each property. The property names that can be found in the schemas are human readable representations and do not carry the meaning of the property. That meaning is resolved
+using the ontology identifiers found in the context files. Thus, properties with the same name might not represent the same thing and properties with different names can actually mean the same thing. For instance, both MIACA and MIACME have a 
+```planned process``` representation that have different names (```project``` for MIACA and ```investigation``` for MIACME).
 
 
 ### Usage
@@ -156,19 +159,24 @@ can be long depending on the number and size of the schemas and the properties o
 
 ### Use-cases
 Merging is the logical extension of the comparison functions. It will help you **import properties** from one schema/network to another without
-manual processing.
+manual processing or references to external networks out of you control.
+<br/> Manual processing can be very easy if the schema you need to reuse is simple and do not have any reference. Just copy paste the schema file and its context files and change the schema identifier.
+If it does though, you will be required to either remove those references or copy all nested children and their context and change all identifiers and repeat for every property you want to import.
+<br/> You may want to let the code do that for you in that case.
 
 The way the merge is implemented relies on the output of the comparison. If two schemas are labelled with the same ontology identifier
 they can be merged. The algorithm will pull all fields from the second schema and recursively add them to the first if they are 
-not already there (including the references and the context files).
+not already there (including the references and the context files). If will also change all names and identifiers as required.
 <br/> The most important consequence to that is the merge order will have a high impact on the final output: merging B into A or A into B will not generate
 the same result.
 
-If you are creating a network and wish to import some properties, you need to create the base schema () and add it to you network through a reference.
+If you are creating a network and wish to import a schema you need to create the base file but stripped of property fields and add it to your network through the corresponding reference.
  Identify the ontology term that this object will be labelled with (it need to be the same as the schema you want to import) 
  and add it to the corresponding context file. When running the merge, the object, its references and their respective context files will be
  added to the output.
  <br/> Note: the input is never modified, a third network is created for you instead.
+ 
+ The combination of the comparison and merge functions make a very good tool to verify your output. Running a first comparison, merging and running secondary comparisons with the two input allows to verify that the integrity of the output and that it matches the desired result.
 
 ### Usage
 ...
