@@ -191,6 +191,9 @@ These functionality are extremely important to allow different communities that 
 but can't use or disagree with the proposed ontology terms. Rather than creating a new network, that person can extend the existing one.
 <br /> The code will assist you into creating the context files, pre-populated with the desired ontology prefixes and URL, and the corresponding mapping files.
 
+Note: unfortunately, without extensive AI the code cannot guess ontology terms. Thus, you will have to find the ontology terms and identifiers you want to use and manually add them
+to the corresponding field in the corresponding context file that has been created for you.
+
 ### Usage
 Coming up soon, please refer to documentation.
 
