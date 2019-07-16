@@ -19,7 +19,7 @@ vertices is a _schema_ and each edge a _relationship between two schemas_. In th
 
 Networks allow to represent very dense sets of objects which may become hardly human readable when the numbers of properties and relationships
 reaches certain thresholds.
-<br/>Adding to the complexity, some semantic constrains should also be taken into consideration for machine readability.. This extra layer creates an even more complex specification to deal with.
+<br/>Adding to the complexity, some semantic constraints should also be taken into consideration for machine readability.. This extra layer creates an even more complex specification to deal with.
 
 #### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
@@ -30,7 +30,7 @@ files (through mapping files) that deliver the ontology term identifiers for eac
 living side by side, for different purposes and different communities.
 
 This repository provides a python3 toolkit that helps users create, compare, merge and explore schemas and their associated context files. It thus provides the means to 
-increase the existing pool of **machine** and **human readable models** that describe the **syntactic** and **semantic constrains** of an object **metadata**.
+increase the existing pool of **machine** and **human readable models** that describe the **syntactic** and **semantic constraints** of an object **metadata**.
 <br/> This is an essential functionality, in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 especially when considering the representation of minimal information checklists, which are often textual artefacts, lacking machine readability. 
 
@@ -88,12 +88,12 @@ Integration tests are located under ```/tests/integration```. They rely on API c
 ## Exploring an existing set of schemas:
 
 ### Use-cases
-When you extend or explore set of schemas, whether you are a community trying to create their own specifications, or a data producer trying to comply with a model,
+When exploring or looking at extending a set of schemas, whether you are a community trying to create their own specifications or a data producer trying to comply with a model,
 you need to understand the information that is being represented. This usually means a lot of navigation between the interconnected schemas
 and context files within a network. 
 <br/>For instance, understanding the knowledge of a single property involves opening the corresponding schema file, locating the field and identifying its optional references to other structures. 
-You also need to locate the corresponding context files, open them, locate the term and search for it's ontology identifier in a lookup service. And you need to repeat that process for each field of each reference within that field,
-and, optionally, for each vocabulary system you need to deal with.
+You also need to locate the corresponding context files, open them, locate the term and search for its ontology identifier in a lookup service. And you need to repeat that process for each field of each reference within that field,
+and, optionally, for each vocabulary system you need to deal with. This is tedious, time consuming and error prone process.
 <br/> We have written a javascript client side application, the [JSON-Schema Documenter](https://github.com/FAIRsharing/JSONschema-documenter), that does all that for you and 
 display the fully resolved network directly in the browser.
 
@@ -106,17 +106,17 @@ which resolves to ```written name```) and, thus, the correctness of your context
 
 
 ### Usage
-If your schemas are living remotely and are accessible through a URL, you can use the [online tool](https://fairsharing.github.io/JSONschema-documenter/) directly by providing your main 
+If your schemas live remotely and are accessible through a URL, you may use the [online tool](https://fairsharing.github.io/JSONschema-documenter/) directly by providing your main 
 schema URL as a parameter to the tool URL. To do that, add ```?schema_url=yourURL``` at the end of the tool.
-<br/> For instance, to view the MIACA network the URL would be ```https://fairsharing.github.io/JSONschema-documenter?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json```
+<br/> For instance, to view the MIACA network, the URL would be ```https://fairsharing.github.io/JSONschema-documenter?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json```
 
-If you also want to add the semantic constrains pulled from the associated context files, you will have to provide a mapping file containing these references that can be generated 
+If you also want to add the semantic constraints pulled from the associated context files, you will have to provide a mapping file containing those references. These can actually be generated 
 for you using the ```schema2context.generate_context_mapping()``` class method (see [documentation](https://jsonldschema.readthedocs.io/en/latest/utils/schemaUtilities.html#schema2context.generate_context_mapping)). 
-You can then upload that mapping file (on github for instance) and provide its URL  as another parameter to the documenter. 
-<br/> For MIACA, we would have the following ```https://fairsharing.github.io/JSONschema-documenter/?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json&context_mapping_url=https://w3id.org/mircat/miacme/schema_context_mapping.json```.
+You can then upload the resulting mapping file (on github for instance) and provide its URL as an additional parameter to the JSONSchema documenter. 
+<br/> For MIACA, we would have the following: ```https://fairsharing.github.io/JSONschema-documenter/?schema_url=https://w3id.org/mircat/miacme/schema/miacme_schema.json&context_mapping_url=https://w3id.org/mircat/miacme/schema_context_mapping.json```.
 
-If the schemas are living locally only (which is usually the case during development), you can clone the JSON-Schema documenter repository and, optionally,
-put it under a web server (such as Apache, Nginx, ...). It will then behave the same way the online service does but can resolve local networks.
+If the schemas live only locally (which is usually the case during development), you may clone the JSON-Schema documenter repository and, optionally,
+put it under a web server (such as Apache, Nginx, ...). It will then behave in the same way as the online service does but will only resolve local networks.
 <br/>For instance, if the application is deserved through port 8000, your url would be:
  ```localhost:8000/JSONschema-documenter?schema_url=path/to/main/schema.json&context_mapping_url=path/to/context/mapping/file.json```
 <br/> We recommend using the ```schemas/``` directory at the root of the application for that purpose.
@@ -129,12 +129,12 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave the 
 
 ### Use-cases
 Comparing schemas can be particularly useful if you intend on creating **metadata that comply with several models** or to **identify
-overlaps with existing networks** when creating or extending set of schemas.
+overlaps with existing networks** when creating or extending sets of schemas.
 <br/> The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
 in context files. This implies that:
 1) Fields and objects without semantic values will never match anything and will be ignored. To verify if all fields are correctly tagged with an ontology term, 
 see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-schemas).
-2) Syntactic constrains are ignored when comparing: only the semantic constrains are being considered.
+2) Syntactic constraints are ignored when comparing: only the semantic constraints are being considered.
 3) Comparisons should be ran within the same contexts: using a schema.org on the one hand, versus a obo markup on the other, will very likely lead to no results.
 
 The python tool will assist you into running the comparison process which will generate an output file containing the comparison results. However, 
@@ -190,9 +190,9 @@ If you are creating a network and wish to import a schema you need to create the
 ## Create new context files
 
 ### Use-cases
-These functionality are extremely important to **allow different communities** that agreed on syntactic constrains **to use different ontology** (thus, semantic constrains). This enables, for instance, to have
+These functionality are extremely important to **allow different communities** that agreed on syntactic constraints **to use different ontology** (thus, semantic constraints). This enables, for instance, to have
 ```dcat```, ```schema.org``` and ```obo``` markups describing the same schemas. 
-<br/> This is also key when one wants to comply with the syntactic constrains of a schema
+<br/> This is also key when one wants to comply with the syntactic constraints of a schema
 but can't use or disagree with the proposed ontology terms. Rather than creating a new network from scratch or importing the existing one, an easier and more reusable solution is to extend the existing one.
 <br /> The code will assist you into creating the context files, pre-populated with the desired ontology prefixes and URL, and the corresponding mapping files.
 <br> Unfortunately, without extensive AI, the code cannot guess ontology terms. Thus, you will have to find the ontology terms and identifiers yourself and manually add them
