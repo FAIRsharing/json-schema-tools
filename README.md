@@ -49,6 +49,8 @@ The input networks used to create the toolkit can be found as follow:
 5) [Create new context files or extend existing ones](#create-new-context-files)
 6) Import MiFlowCyt instances (dataset) as JSON-LD and validate them against the proper schema set (requires an API key)
 7) [Identify circularity in existing set of schemas](#optional-identify-circularity-in-schemas) (using yet another python library)
+8) [License](#license)
+9) [Contact](#contact)
 
 
 ## Setting Up:
@@ -224,7 +226,6 @@ This code is provided under [BSD 3-Clause License](https://github.com/FAIRsharin
 
 ## Contact
 
-- [Alejandra Gonzalez-Beltran](http://github.com/agbeltran)
 - [Dominique Batista](http://github.com/terazus)
 
 
