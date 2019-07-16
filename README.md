@@ -5,21 +5,21 @@
 
 
 ## Machine Actionable Metadata Models
-One of the most common format to exchange data over the web is the **JavaScript Object Notation** (**JSON**). It's a popular open-standard
-that can be used to represent data instances and physical constrains a given object should comply with. These syntactic constrains are called **schemas**.
+One of the most common format to exchange data over the web is the **JavaScript Object Notation** (**JSON**). It is a popular open-standard that can be used to represent data instances but also to represent 
+and physical constraints a given object should comply with. These syntactic constraints are called **JSON schemas**.
 
-Schemas are built using the **JSON-Schema** specification and inform about the the properties of an object. Among those, one may find names, 
-descriptions, values, cardinality, ect ....
-<br/> The specification relies on the powerful ```$ref``` keyword to create links between schemas called references. An example easy to understand is the relationship between an Organization and a Person through 
+The **JSON-Schema** specification informs about the the properties of an object. Among those, one may find names, 
+descriptions, values, cardinality, ect... .
+<br/> The specification provides a powerful mechanism (the ```$ref``` keyword) to create links between schemas called references. An easy to understand example is the relationship between an Organization and a Person through 
 the ```employee``` property. In some rare cases, an employee could also be another organization or even both at the
  same time (a single self-employed person hired as a service provider through his own company). JSON-Schema also supports these types of relationships through the use of the ```anyOf```, ```oneOf``` and ```allOf``` keywords.
-<br/> These references give the ability to create very complex oriented (optionally cyclic, see [below](#optional-identify-circularity-in-schemas)) graphs where each
-vertices is a schema and each edge a relationship between two schemas. In this documentation we will refer to these interconnected structures
+<br/> These references give the ability to create very complex oriented graph (possibly cyclic ones, see [below](#optional-identify-circularity-in-schemas)) graphs where each
+vertices is a _schema_ and each edge a _relationship between two schemas_. In this documentation we will refer to these interconnected structures
  as **networks**.
 
-Networks allow to represent very dense objects which may become hardly human readable when the numbers of properties and relationships
-reach certain thresholds.
-<br/>To emphasise this phenomena, there are semantic constrains that should also be taken into consideration for machine readability. This extra layer creates an even more complex specification to deal with.
+Networks allow to represent very dense sets of objects which may become hardly human readable when the numbers of properties and relationships
+reaches certain thresholds.
+<br/>Adding to the complexity, some semantic constrains should also be taken into consideration for machine readability.. This extra layer creates an even more complex specification to deal with.
 
 #### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
@@ -29,7 +29,7 @@ files (through mapping files) that deliver the ontology terms identifiers for ea
 <br/> This allows to easily reuse or extend existing schemas or networks with new vocabulary terms and to have different ontology 
 living side by side, for different purposes and different communities.
 
-This repository provides a python 3 toolkit that help users create, compare, merge and explore schemas and their associated context files in order to 
+This repository provides a python 3 toolkit that helps users create, compare, merge and explore schemas and their associated context files in order to 
 increase the existing pool of **machine** and **human readable models** that describe the **syntactic** and **semantic constrains** of an object **metadata**.
 <br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 where a lot of representations are still too verbose and lack machine readability. 
@@ -211,9 +211,9 @@ This code will not be relevant to developers or data providers trying to create 
 Using the JSON-Documenter, the comparator and the context file assistance, the Minimum Information About Flow Cytometry Experiments checklist was expressed in JSON-Schemas and tagged with ontology terms from obo foundry.
 <br/> The code in the module is a client implementation of the Flow Repository API which deliver MiFlowCyt dataset through XML format.
 <br/> The XML data is progressively transformed to a simple JSON into which are injected the properties required by the JSON-LD specifications.
-<br/> The data is then syntactically validated against the corresponding MiFlowCyt schemas and, if valid, pushed to a FireBase real-time database (see picture below).
+<br/> The data is then syntactically validated against the corresponding MiFlowCyt schemas and, if valid, pushed to a FireBase real-time database (see picture [below](#valid-miflowcyt-json-ld-instance-extracted-and-transformed-from-flow-repository)).
 
-#### Valid MiFlowCyt JSON-LD instance extracted and transformed from Flow Repository:
+#### Valid MiFlowCyt JSON-LD instance extracted and transformed from Flow Repository and added to a FireBase real-time database:
 ![alt text](assets/miflowcyt_firebase_export.png "MiFlowcyt in Firebase")
 
 ### Usage
