@@ -48,7 +48,7 @@ The input networks used to create the toolkit can be found as follow:
 4) [Merge schemas](#merge-schemas)
 5) [Create new context files or extend existing ones](#create-new-context-files)
 6) Import MiFlowCyt instances (dataset) as JSON-LD and validate them against the proper schema set (requires an API key)
-7) Identify circularity in existing set of schemas (using yet another python library)
+7) [Identify circularity in existing set of schemas](#optional-identify-circularity-in-schemas) (using yet another python library)
 
 
 ## Setting Up:
@@ -192,7 +192,7 @@ but can't use or disagree with the proposed ontology terms. Rather than creating
 <br /> The code will assist you into creating the context files, pre-populated with the desired ontology prefixes and URL, and the corresponding mapping files.
 
 Note: unfortunately, without extensive AI the code cannot guess ontology terms. Thus, you will have to find the ontology terms and identifiers you want to use and manually add them
-to the corresponding field in the corresponding context file that has been created for you.
+to the corresponding field in the corresponding context files that have been created for you.
 
 ### Usage
 Coming up soon, please refer to documentation.
@@ -211,7 +211,9 @@ Coming up soon, please refer to documentation.
 ## (Optional) Identify circularity in schemas
 
 ### Use-cases
-...
+Some networks and schemas, due to the ability to reference each others, can have a lot of internal circularities. For algorithm recursively processing JSON, a circularity can induce endless loops. In very rare cases, it's even 
+possible tho use this technique to create JSON attacks that induce denial of services on the target host.
+<br/> This code will simply identify circularities in a given JSON and return an array.
 
 ### Usage
 ...
