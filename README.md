@@ -6,13 +6,16 @@
 
 ## Machine Actionable Metadata Models
 One of the most common format to exchange data over the web is the **JavaScript Object Notation** (**JSON**). It's a popular open-standard
-that can be used to represent data instances and physical constrains a given object should comply with. These constrains are called **schemas**.
+that can be used to represent data instances and physical constrains a given object should comply with. These syntactic constrains are called **schemas**.
 
-Schemas are built using the **JSON-Schema** specification and inform about the syntactic constrains of an object, in other words its properties. Among those, one may find names, 
-descriptions, values, cardinality, references to other schemas, ect ....
-<br/> They rely on the powerful ```$ref``` keyword to references other schemas, creating very complex oriented (optionally cyclic) graphs where each
-node is a schema and each vertices is a relationship between two schemas. In this documentation we will refer to these interconnected structures
- as **networks**. 
+Schemas are built using the **JSON-Schema** specification and inform about the the properties of an object. Among those, one may find names, 
+descriptions, values, cardinality, ect ....
+<br/> The specification relies on the powerful ```$ref``` keyword to create links between schemas called references. An example easy to understand is the relationship between an Organization and a Person through 
+the ```employee``` property. In some rare cases, an employee could also be another organization or even both at the
+ same time (a single self-employed person hired as a service provider through his own company). JSON-Schema also supports these types of relationships through the use of the ```anyOf```, ```oneOf``` and ```allOf``` keywords.
+<br/> These references give the ability to create very complex oriented (optionally cyclic, see [below](#optional-identify-circularity-in-schemas)) graphs where each
+vertices is a schema and each edge a relationship between two schemas. In this documentation we will refer to these interconnected structures
+ as **networks**.
 
 Networks allow to represent very dense objects which may become hardly human readable when the numbers of properties and relationships
 reach certain thresholds.
@@ -22,11 +25,11 @@ reach certain thresholds.
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
 In order to cope with both the semantic and syntactic concerns, the semantic layer was separated from the schemas and included in context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
-files (through mapping files) that deliver the ontology terms describing the objects in the schemas and their properties. 
-<br/> This allows to easily extend or reuse an existing schema or network with new vocabulary terms and to have different ontology 
+files (through mapping files) that deliver the ontology terms identifiers for each of the schemas properties. 
+<br/> This allows to easily reuse or extend existing schemas or networks with new vocabulary terms and to have different ontology 
 living side by side, for different purposes and different communities.
 
-This repository provides a python 3 toolkit that help users create, compare, merge and export schemas and their associated context files in order to 
+This repository provides a python 3 toolkit that help users create, compare, merge and explore schemas and their associated context files in order to 
 increase the existing pool of **machine** and **human readable models** that describe the **syntactic** and **semantic constrains** of an object **metadata**.
 <br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
 where a lot of representations are still too verbose and lack machine readability. 
@@ -47,7 +50,7 @@ The input networks used to create the toolkit can be found as follow:
 3) [Compare schemas in the browser](#compare-schemas) (requires the compare-and-view tool)
 4) [Merge schemas](#merge-schemas)
 5) [Create new context files or extend existing ones](#create-new-context-files)
-6) Import MiFlowCyt instances (dataset) as JSON-LD and validate them against the proper schema set (requires an API key)
+6) [Import MiFlowCyt instances](#import-and-validate-miflowcyt-dataset) (dataset) as JSON-LD and validate them against the proper schema set (requires an API key)
 7) [Identify circularity in existing set of schemas](#optional-identify-circularity-in-schemas) (using yet another python library)
 8) [License](#license)
 9) [Contact](#contact)
@@ -161,7 +164,7 @@ can be long depending on the number and size of the schemas and the properties o
 
 ### Use-cases
 Merging is the logical extension of the comparison functions. It will help you **import properties** and **schemas** from one network to another without
-manually processing each single item or referencing to external networks out of you control which can change at any point in time.
+manually processing each single item or without creating references to external networks out of you control and thus can change at any point in time.
 <br/> Manual processing can be very easy if the schema you need to reuse is simple and do not have any reference. Just copy paste the schema file and its context files.
 If it does though, you will be required to either remove these references or copy all nested children and their context.
 <br/> You may want to let the code do that for you in that case.
@@ -187,13 +190,12 @@ If you are creating a network and wish to import a schema you need to create the
 ## Create new context files
 
 ### Use-cases
-These functionality are extremely important to allow different communities that agreed on syntactic constrains to use different ontology, thus semantic constrains. This allow, for instance, to have
+These functionality are extremely important to **allow different communities** that agreed on syntactic constrains **to use different ontology** (thus, semantic constrains). This enables, for instance, to have
 ```dcat```, ```schema.org``` and ```obo``` markups describing the same schemas. 
 <br/> This is also key when one wants to comply with the syntactic constrains of a schema
-but can't use or disagree with the proposed ontology terms. Rather than creating a new network, that person can extend the existing one.
+but can't use or disagree with the proposed ontology terms. Rather than creating a new network from scratch or importing the existing one, an easier and more reusable solution is to extend the existing one.
 <br /> The code will assist you into creating the context files, pre-populated with the desired ontology prefixes and URL, and the corresponding mapping files.
-
-Note: unfortunately, without extensive AI the code cannot guess ontology terms. Thus, you will have to find the ontology terms and identifiers you want to use and manually add them
+<br> Unfortunately, without extensive AI, the code cannot guess ontology terms. Thus, you will have to find the ontology terms and identifiers yourself and manually add them
 to the corresponding field in the corresponding context files that have been created for you.
 
 ### Usage
@@ -204,21 +206,30 @@ Coming up soon, please refer to documentation.
 ## Import and validate MiFlowCyt dataset
 
 ### Use-cases
-...
+This code will not be relevant to developers or data providers trying to create their own set of schemas. It purpose is to showcase how the code works and the functionality that can be used.
+
+Using the JSON-Documenter, the comparator and the context file assistance, the Minimum Information About Flow Cytometry Experiments checklist was expressed in JSON-Schemas and tagged with ontology terms from obo foundry.
+<br/> The code in the module is a client implementation of the Flow Repository API which deliver MiFlowCyt dataset through XML format.
+<br/> The XML data is progressively transformed to a simple JSON into which are injected the properties required by the JSON-LD specifications.
+<br/> The data is then syntactically validated against the corresponding MiFlowCyt schemas and, if valid, pushed to a FireBase real-time database (see picture below).
+
+#### Valid MiFlowCyt JSON-LD instance extracted and transformed from Flow Repository:
+![alt text](assets/miflowcyt_firebase_export.png "MiFlowcyt in Firebase")
 
 ### Usage
-...
+Coming up soon, please refer to documentation.
 
 
 ## (Optional) Identify circularity in schemas
 
 ### Use-cases
-Some networks and schemas, due to the ability to reference each others, can have a lot of internal circularities. For algorithm recursively processing JSON, a circularity can induce endless loops. In very rare cases, it's even 
-possible tho use this technique to create JSON attacks that induce denial of services on the target host.
-<br/> This code will simply identify circularities in a given JSON and return an array.
+Some networks and schemas, due to the ability to reference each others, can have a lot of circularity. On top of being harder to navigate through for human beings,
+it can also create algorithmic bugs including endless loops, recursive caps, ... In very rare cases, it's even 
+possible to use this technique to crash a target host by triggering an uncaught endless loop.
+<br/> This code will simply identify circularity between schemas in a network and return them as an array by using First Depth Search.
 
 ### Usage
-...
+Coming up soon, please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles).
 
 
 ## License
