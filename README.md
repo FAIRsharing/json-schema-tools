@@ -9,9 +9,9 @@ One of the most common format to exchange data over the web is the **JavaScript 
 and physical constraints a given object should comply with. These syntactic constraints are called **JSON schemas**.
 
 The **JSON-Schema** specification informs about the the properties of an object. Among those, one may find names, 
-descriptions, values, cardinality, ect... .
+descriptions, values, cardinality and so on.
 <br/> The specification provides a powerful mechanism (the ```$ref``` keyword) to create links between schemas called references. An easy to understand example is the relationship between an Organization and a Person through 
-the ```employee``` property. In some rare cases, an employee could also be another organization or even both at the
+the ```employee``` property. In some rare cases, an employee could also be another organization or even both at the 
  same time (a single self-employed person hired as a service provider through his own company). JSON-Schema also supports these types of relationships through the use of the ```anyOf```, ```oneOf``` and ```allOf``` keywords.
 <br/> These references give the ability to create very complex oriented graphs (possibly cyclic ones, see [below](#optional-identify-circularity-in-schemas)) where each
 vertices is a _schema_ and each edge a _relationship between two schemas_. In this documentation we will refer to these interconnected structures
@@ -24,19 +24,19 @@ reaches certain thresholds.
 #### Separating syntactic and semantic layers:
 ![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
 
-In order to cope with both the semantic and syntactic concerns, the semantic layer was separated from the schemas and included in context files inspired by the **JSON-LD** specification. Each schema is bound to a set of context 
-files (through mapping files) that deliver the ontology terms identifiers for each of the schemas properties. 
-<br/> This allows to easily reuse or extend existing schemas or networks with new vocabulary terms and to have different ontology 
+In order to cope with both the semantic and syntactic concerns, the semantic layer was separated from the schemas and included in context files following the **JSON-LD** specification. Each schema is bound to a set of context 
+files (through mapping files) that deliver the ontology term identifiers for each of the schemas properties. 
+<br/> This allows to easily reuse or extend existing schemas or networks with new vocabulary terms and to have different mappings to ontologies 
 living side by side, for different purposes and different communities.
 
-This repository provides a python 3 toolkit that helps users create, compare, merge and explore schemas and their associated context files in order to 
+This repository provides a python3 toolkit that helps users create, compare, merge and explore schemas and their associated context files. It thus provides the means to 
 increase the existing pool of **machine** and **human readable models** that describe the **syntactic** and **semantic constrains** of an object **metadata**.
-<br/> This is very important, especially in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
-where a lot of representations are still too verbose and lack machine readability. 
+<br/> This is an essential functionality, in the context of data **Findability**, **Accessibility**, **Integrability** and **Reusablity** ([FAIR](https://www.nature.com/articles/sdata201618)) 
+especially when considering the representation of minimal information checklists, which are often textual artefacts, lacking machine readability. 
 
 
 #### Inputs
-The input networks used to create the toolkit can be found as follow:
+The tested input networks required to create the toolkit are the following:
 - Minimum Information About Cell Assays: **[MIACA](https://github.com/FAIRsharing/mircat/tree/master/miaca)** 
 - Minimum Information About Cell Migration Experiments: **[MIACME](https://github.com/FAIRsharing/mircat/tree/master/miacme)**
 - Data Tag Suite: **DATS** [schemas](https://github.com/datatagsuite/schema) and [context](https://github.com/datatagsuite/context)
@@ -58,7 +58,7 @@ The input networks used to create the toolkit can be found as follow:
 
 ## Setting Up:
 
-First, you will need a virtual environment, import the code and install dependencies:
+First, you will need to set up a virtual environment, then import the code and install dependencies:
 ```
 virtualenv venv
 source venv/bin/activate
@@ -67,7 +67,7 @@ cd jsonldschema
 pip install -r requirements.txt
 ```
 
-If you plan on using either the CEDAR exporter or the MiFlowCyt importer, you will need to provide your API keys through 
+If you plan on using either the CEDAR exporter or the MiFlowCyt importer, you will also need to provide your API keys through 
 a configuration file and, optionally run the integration tests.
 - make a copy of the ```/tests/test_config.json.sample``` file and open the copy:
 
@@ -82,7 +82,7 @@ You will need to provide:
 - a valid user ID which will become the author of created content (UUID on your CEDAR user profile page, https://cedar.metadatacenter.org/profile)
 - a valid [Flow Repository](https://flowrepository.org/) API key.
 
-Integration tests are located under ```/tests/integration```. They rely on API calls and are excluded from the continuous integration builds.
+Integration tests are located under ```/tests/integration```. They rely on API calls and are therefore excluded from the continuous integration builds.
 
 
 ## Exploring an existing set of schemas:
