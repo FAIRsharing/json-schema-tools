@@ -13,7 +13,7 @@ descriptions, values, cardinality, ect... .
 <br/> The specification provides a powerful mechanism (the ```$ref``` keyword) to create links between schemas called references. An easy to understand example is the relationship between an Organization and a Person through 
 the ```employee``` property. In some rare cases, an employee could also be another organization or even both at the
  same time (a single self-employed person hired as a service provider through his own company). JSON-Schema also supports these types of relationships through the use of the ```anyOf```, ```oneOf``` and ```allOf``` keywords.
-<br/> These references give the ability to create very complex oriented graph (possibly cyclic ones, see [below](#optional-identify-circularity-in-schemas)) graphs where each
+<br/> These references give the ability to create very complex oriented graphs (possibly cyclic ones, see [below](#optional-identify-circularity-in-schemas)) where each
 vertices is a _schema_ and each edge a _relationship between two schemas_. In this documentation we will refer to these interconnected structures
  as **networks**.
 
