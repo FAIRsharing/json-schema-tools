@@ -184,7 +184,7 @@ If you are creating a network and wish to import a schema, you need to create th
  added to the output.
  <br/> Note: the input is never modified, a third network is created for you instead.
 
-## Creating new JSON-LD context files or extend existing ones
+## 5. Creating new JSON-LD context files or extend existing ones
 
 ### Use case:
 This functionality is extremely important to **allow different communities** that agreed on syntactic constraints **to use different ontology** (thus, distinct semantic constraints). This enables, for instance, to have
@@ -199,7 +199,7 @@ to the corresponding field in the corresponding context files that have been cre
 Coming up soon, please refer to [documentation](https://jsonldschema.readthedocs.io/en/latest/utils/schemaUtilities.html).
 
 
-## 5. (Optional) Identify circularity in schemas
+## 6. (Optional) Identify circularity in schemas
 
 ### Use case:
 As touched upon in the introduction, some networks and schemas, due to the ability to reference each others, may become fairly complex and harbour circularity. Besides being harder to navigate for human beings,
@@ -211,7 +211,7 @@ It is therefore a good thing to checkfor circularity in JSON schema networks and
 Please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles) and the following [jupyter notebook](https://github.com/FAIRsharing/jsonCycles/blob/master/notebooks/Finding_jsonCycles.ipynb).
 
 
-## 6. Import and validate MiFlowCyt dataset
+## 7. Import and validate MiFlowCyt dataset
 
 ### Use case:
 The purpose of this section is to showcase how the code works and how the various functionalities can be used.
