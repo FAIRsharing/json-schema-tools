@@ -33,7 +33,7 @@ reaches certain thresholds.
 <br/>Adding to the complexity, some semantic constraints should also be taken into consideration for machine readability.. This extra layer creates an even more complex specification to deal with.
 
 #### Separating syntactic and semantic layers:
-![alt text](assets/separation_of_concerns.png "Separation of semantic and syntactic concerns")
+![alt text](assets/separation_of_concerns.png "Figure 1: Separation of semantic and syntactic concerns")
 
 In order to cope with both the semantic and syntactic concerns, the semantic layer was separated from the schemas and included in context files following the **JSON-LD** specification. Each schema is bound to a set of context 
 files (through mapping files) that deliver the ontology term identifiers for each of the schemas properties. 
@@ -121,7 +121,7 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave in t
 <br/> We recommend using the ```schemas/``` directory at the root of the application for that purpose.
 
 #### Screenshots of the MIACA network loaded in the jsonschema online documenter:
-![alt text](assets/documenter_miaca.png "Documenter loaded with MIACA schema")
+![alt text](assets/documenter_miaca.png "Figure 2: Documenter loaded with MIACA schema")
 
 
 ## 3. Comparing JSON schemas
@@ -154,7 +154,7 @@ can be long depending on the number and size of the schemas and the properties o
 
 
 #### Screenshots of the comparison display between MIACA and MIACME
-![alt text](assets/comparator.png "Comparison between MIACA and MIACME")
+![alt text](assets/comparator.png "Figure 3: Comparison between MIACA and MIACME")
 
 
 ## 4. Merging JSON schemas
@@ -196,7 +196,7 @@ but can't use or disagree with the proposed ontology terms. Rather than creating
 to the corresponding field in the corresponding context files that have been created for you.
 
 ### Usage:
-Coming up soon, please refer to documentation.
+Coming up soon, please refer to [documentation](https://jsonldschema.readthedocs.io/en/latest/utils/schemaUtilities.html).
 
 
 ## 5. (Optional) Identify circularity in schemas
@@ -217,16 +217,16 @@ Please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles) and the
 The purpose of this section is to showcase how the code works and how the various functionalities can be used.
 **(This code will not be relevant to developers or data providers trying to create their own set of schemas.)**
 
-Using the JSON-Documenter, the comparator and the context file assistance, the Minimum Information About Flow Cytometry Experiments checklist was expressed in JSON-Schemas and tagged with ontology terms from obo foundry.
-<br/> The code in the module is a client implementation of the Flow Repository API which deliver MiFlowCyt dataset through XML format.
+Using the JSON-Documenter, the comparator and the context file assistance, the Minimum Information About Flow Cytometry Experiments checklist was expressed as JSON-Schemas and tagged with ontology terms from obo foundry.
+<br/> The code in the module is a client implementation of the Flow Repository API, which delivers MiFlowCyt datasets in XML format.
 <br/> The XML data is progressively transformed to a simple JSON into which are injected the properties required by the JSON-LD specifications.
-<br/> The data is then syntactically validated against the corresponding MiFlowCyt schemas and, if valid, pushed to a FireBase real-time database (see picture [below](#valid-miflowcyt-json-ld-instance-extracted-and-transformed-from-flow-repository)).
+<br/> The output is then syntactically validated against the corresponding MiFlowCyt schemas and, if valid, pushed to a FireBase real-time database (see [figure 4](#valid-miflowcyt-json-ld-instance-extracted-and-transformed-from-flow-repository)).
 
 #### Valid MiFlowCyt JSON-LD instance extracted and transformed from Flow Repository and added to a FireBase real-time database:
-![alt text](assets/miflowcyt_firebase_export.png "MiFlowcyt in Firebase")
+![alt text](assets/miflowcyt_firebase_export.png "Figure 4: MiFlowcyt in Firebase")
 
 ### Usage:
-Coming up soon, please refer to documentation.
+Coming up soon, please refer to the [documentation](https://jsonldschema.readthedocs.io/en/latest/validation/validationUsage.html).
 
 
 
