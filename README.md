@@ -217,8 +217,8 @@ Please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles) and the
 The purpose of this section is to showcase how the code works and how the various functionalities can be used.
 **(This code will not be relevant to developers or data providers trying to create their own set of schemas.)**
 
-Using the JSON-Documenter, the comparator and the context file assistance, the Minimum Information About Flow Cytometry Experiments checklist was expressed as JSON-Schemas and tagged with ontology terms from obo foundry.
-<br/> The code in the module is a client implementation of the Flow Repository API, which delivers MiFlowCyt datasets in XML format.
+Using the JSON-Documenter, the JSON-schema comparator and the JSON-LD context file assistance, the ```Minimum Information About Flow Cytometry Experiments checklist``` was expressed as JSON-Schemas and tagged with ontology terms from [OBO foundry](http://www.obofoundry.org/).
+<br/> The code in the module is a client implementation of the Flow Repository API, which delivers ```MiFlowCyt``` datasets in XML format.
 <br/> The XML data is progressively transformed to a simple JSON into which are injected the properties required by the JSON-LD specifications.
 <br/> The output is then syntactically validated against the corresponding MiFlowCyt schemas and, if valid, pushed to a FireBase real-time database (see [figure 4](#valid-miflowcyt-json-ld-instance-extracted-and-transformed-from-flow-repository)).
 
