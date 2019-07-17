@@ -5,14 +5,14 @@
 
 
 #### Navigation
-0)  [Introduction](#machine-actionable-metadata-models)
+)  [Introduction](#machine-actionable-metadata-models)
 1) [Setting up](#setting-up)
-2) [Explore existing schemas in the browser](#exploring-an-existing-set-of-schemas) (requires the jsonschema documenter)
-3) [Compare schemas in the browser](#compare-schemas) (requires the compare-and-view tool)
-4) [Merge schemas](#merge-schemas)
-5) [Create new context files or extend existing ones](#create-new-context-files)
-6) [Import MiFlowCyt instances](#import-and-validate-miflowcyt-dataset) (dataset) as JSON-LD and validate them against the proper schema set (requires an API key)
-7) [Identify circularity in existing set of schemas](#optional-identify-circularity-in-schemas) (using yet another python library)
+2) [Exploring existing JSON schemas in the browser](#exploring-an-existing-set-of-schemas) (requires the jsonschema documenter)
+3) [Comparing JSON schemas in the browser](#compare-schemas) (requires the compare-and-view tool)
+4) [Merging JSON schemas](#merge-schemas)
+5) [Creating new JSON-LD context files or extend existing ones](#create-new-context-files)
+6) [Identifying circularity in a set of JSON schemas](#optional-identify-circularity-in-schemas) (using yet another python library)
+7) [A worked example: Importing MiFlowCyt instances](#import-and-validate-miflowcyt-dataset) (dataset) as JSON-LD and validating them against relevant JSON schema set (requires an API key)
 8) [License](#license)
 9) [Contact](#contact)
 
@@ -84,9 +84,9 @@ You will need to provide:
 Integration tests are located under ```/tests/integration```. They rely on API calls and are therefore excluded from the continuous integration builds.
 
 
-## Exploring an existing set of schemas:
+## Exploring existing JSON schemas:
 
-### Use-cases
+### Use case:
 When exploring or looking at extending a set of schemas, whether you are a community trying to create their own specifications or a data producer trying to comply with a model,
 you need to understand the information that is being represented. This usually means a lot of navigation between the interconnected schemas
 and context files within a network. 
@@ -124,9 +124,9 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave in t
 ![alt text](assets/documenter_miaca.png "Documenter loaded with MIACA schema")
 
 
-## Compare schemas
+## Comparing JSON schemas
 
-### Use-cases
+### Use case:
 Comparing schemas can be particularly useful if you intend on creating **metadata that comply with several models** or to **identify
 overlaps with existing networks** when creating or extending sets of schemas.
 <br/> The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
@@ -145,7 +145,7 @@ using the ontology identifiers found in the context files. Thus, properties with
 <br/> This is the main reason why the comparison align schemas and properties based on the ontology terms and not on the object names.
 
 
-### Usage
+### Usage:
 In order to run a comparison between two networks, you will have to use the ```FullDiffGenerator``` or  ```FullSemDiff```classes (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html))
 based on your use case. Optionally, you can also run a schema comparison with the ```EntityCoverage``` class 
 (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semanticComparator.html))
@@ -158,9 +158,9 @@ can be long depending on the number and size of the schemas and the properties o
 ![alt text](assets/comparator.png "Comparison between MIACA and MIACME")
 
 
-## Merge schemas
+## Merging JSON schemas
 
-### Use-cases
+### Use case:
 Merging is the logical extension of the comparison functions. It will help you **import properties** and **schemas** from one network to another without
 manually processing each single item or without creating references to external networks out of you control and thus can change at any point in time.
 <br/> Manual processing can be very easy if the schema you need to reuse is simple and do not have any reference. Just copy paste the schema file and its context files.
@@ -176,7 +176,7 @@ the same result.
 The combination of the comparison and merge functions make a very good tool to verify your output. Running a first comparison, merging and running secondary comparison with the two merge input allows to verify 
 the integrity of the output and that it matches the desired result.
 
-### Usage
+### Usage:
 Coming up soon, please refer to documentation.
 
 If you are creating a network and wish to import a schema, you need to create the base file, stripped of property fields, and add it to your network through the corresponding reference.
@@ -185,9 +185,9 @@ If you are creating a network and wish to import a schema, you need to create th
  added to the output.
  <br/> Note: the input is never modified, a third network is created for you instead.
 
-## Create new context files
+## Creating new JSON-LD context files or extend existing ones
 
-### Use-cases
+### Use case:
 This functionality is extremely important to **allow different communities** that agreed on syntactic constraints **to use different ontology** (thus, distinct semantic constraints). This enables, for instance, to have
 ```dcat```, ```schema.org``` and ```obo``` markups describing the same schemas. 
 <br/> This is also key when one wants to comply with the syntactic constraints of a schema
@@ -196,14 +196,25 @@ but can't use or disagree with the proposed ontology terms. Rather than creating
 <br> Unfortunately, in the absence of more advanced solutions (AI or otherwise), the library cannot guess ontology terms. Thus, you will have to perfomrm the ontology terms and identifiers lookup yourself and manually add them
 to the corresponding field in the corresponding context files that have been created for you.
 
-### Usage
+### Usage:
 Coming up soon, please refer to documentation.
 
+
+## (Optional) Identify circularity in schemas
+
+### Use case:
+Some networks and schemas, due to the ability to reference each others, can have a lot of circularity. On top of being harder to navigate through for human beings,
+it can also create algorithmic bugs including endless loops, recursive caps and so on... In very rare cases, it is even 
+possible to use this technique to crash a target host by triggering an uncaught endless loop. It is therefore a good thing to check and be aware of.
+<br/> This code will simply identify circularity between schemas in a network and return them as an array by using First Depth Search.
+
+### Usage:
+Coming up soon, please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles).
 
 
 ## Import and validate MiFlowCyt dataset
 
-### Use-cases
+### Use case:
 This code will not be relevant to developers or data providers trying to create their own set of schemas. Its purpose is to showcase how the code works and the functionalities that can be used.
 
 Using the JSON-Documenter, the comparator and the context file assistance, the Minimum Information About Flow Cytometry Experiments checklist was expressed in JSON-Schemas and tagged with ontology terms from obo foundry.
@@ -214,20 +225,11 @@ Using the JSON-Documenter, the comparator and the context file assistance, the M
 #### Valid MiFlowCyt JSON-LD instance extracted and transformed from Flow Repository and added to a FireBase real-time database:
 ![alt text](assets/miflowcyt_firebase_export.png "MiFlowcyt in Firebase")
 
-### Usage
+### Usage:
 Coming up soon, please refer to documentation.
 
 
-## (Optional) Identify circularity in schemas
 
-### Use-cases
-Some networks and schemas, due to the ability to reference each others, can have a lot of circularity. On top of being harder to navigate through for human beings,
-it can also create algorithmic bugs including endless loops, recursive caps and so on... In very rare cases, it is even 
-possible to use this technique to crash a target host by triggering an uncaught endless loop. It is therefore a good thing to check and be aware of.
-<br/> This code will simply identify circularity between schemas in a network and return them as an array by using First Depth Search.
-
-### Usage
-Coming up soon, please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles).
 
 
 ## License
