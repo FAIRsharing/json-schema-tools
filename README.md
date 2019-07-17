@@ -5,7 +5,7 @@
 
 
 #### Navigation
-)  [Introduction](#machine-actionable-metadata-models)
+- [Introduction](#machine-actionable-metadata-models)
 1) [Setting up](#setting-up)
 2) [Exploring existing JSON schemas in the browser](#exploring-an-existing-set-of-schemas) (requires the jsonschema documenter)
 3) [Comparing JSON schemas in the browser](#compare-schemas) (requires the compare-and-view tool)
