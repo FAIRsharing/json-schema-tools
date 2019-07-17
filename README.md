@@ -189,11 +189,11 @@ If you are creating a network and wish to import a schema, you need to create th
 ### Use case:
 This functionality is extremely important to **allow different communities** that agreed on syntactic constraints **to use different ontology** (thus, distinct semantic constraints). This enables, for instance, to have
 ```dcat```, ```schema.org``` and ```obo``` markups describing the same schemas. 
-<br/> This is also key when one wants to comply with the syntactic constraints of a schema
-but can't use or disagree with the proposed ontology terms. Rather than creating a new network from scratch or importing the existing one, an easier and more reusable solution is to extend the existing one.
-<br /> The code will assist you into creating the context files, pre-populated with the desired ontology prefixes and URL, and the corresponding mapping files.
-<br> Unfortunately, in the absence of more advanced solutions (AI or otherwise), the library cannot guess ontology terms. Thus, you will have to perfomrm the ontology terms and identifiers lookup yourself and manually add them
-to the corresponding field in the corresponding context files that have been created for you.
+<br/>This is also key when one wants to comply with the syntactic constraints of a schema
+but can not use (or disagrees with) the proposed ontology terms. Rather than creating a new network from scratch, an easier and more reusable solution is to extend the existing one.
+<br />The code will assist you into creating the context files, pre-populated with the desired ontology prefixes and URL, and the corresponding mapping files.
+<br> Unfortunately, in the absence of more advanced solutions (AI or otherwise), the library cannot guess ontology terms. Thus, users will have to perform ontology terms and identifiers lookup themselves and manually add them
+to the corresponding field in the corresponding context files that have been created for that purpose.
 
 ### Usage:
 Coming up soon, please refer to [documentation](https://jsonldschema.readthedocs.io/en/latest/utils/schemaUtilities.html).
