@@ -4,15 +4,26 @@
 [![Documentation Status](https://readthedocs.org/projects/jsonldschema/badge/?version=latest)](https://jsonldschema.readthedocs.io/en/latest/?badge=latest)
 
 
+#### Navigation
+0)  [Introduction](#machine-actionable-metadata-models)
+1) [Setting up](#setting-up)
+2) [Explore existing schemas in the browser](#exploring-an-existing-set-of-schemas) (requires the jsonschema documenter)
+3) [Compare schemas in the browser](#compare-schemas) (requires the compare-and-view tool)
+4) [Merge schemas](#merge-schemas)
+5) [Create new context files or extend existing ones](#create-new-context-files)
+6) [Import MiFlowCyt instances](#import-and-validate-miflowcyt-dataset) (dataset) as JSON-LD and validate them against the proper schema set (requires an API key)
+7) [Identify circularity in existing set of schemas](#optional-identify-circularity-in-schemas) (using yet another python library)
+8) [License](#license)
+9) [Contact](#contact)
+
+
 ## Machine Actionable Metadata Models
 One of the most common format to exchange data over the web is the **JavaScript Object Notation** (**JSON**). It is a popular open-standard that can be used to represent data instances but also to represent 
-and physical constraints a given object should comply with. These syntactic constraints are called **JSON schemas**.
-
-The **JSON-Schema** specification informs about the the properties of an object. Among those, one may find names, 
+and physical constraints a given object should comply with. These syntactic constraints are called **JSON schemas**. The **JSON-Schema** specification informs about the the properties of an object. Among those, one may find names, 
 descriptions, values, cardinality and so on.
-<br/> The specification provides a powerful mechanism (the ```$ref``` keyword) to create links between schemas called references. An easy to understand example is the relationship between an Organization and a Person through 
+<br/> The specification provides a powerful mechanism (the ```$ref``` keyword) to create links between schemas called references. An easy to understand example is the relationship between an ```Organization``` and a ```Perso``` through 
 the ```employee``` property. In some rare cases, an employee could also be another organization or even both at the 
- same time (a single self-employed person hired as a service provider through his own company). JSON-Schema also supports these types of relationships through the use of the ```anyOf```, ```oneOf``` and ```allOf``` keywords.
+ same time (a single self-employed person hired as a service provider through his own company). JSON-Schema supports these types of relationships through the use of the ```anyOf```, ```oneOf``` and ```allOf``` keywords.
 <br/> These references give the ability to create very complex oriented graphs (possibly cyclic ones, see [below](#optional-identify-circularity-in-schemas)) where each
 vertices is a _schema_ and each edge a _relationship between two schemas_. In this documentation we will refer to these interconnected structures
  as **networks**.
@@ -42,18 +53,6 @@ The tested input networks required to create the toolkit are the following:
 - Data Tag Suite: **DATS** [schemas](https://github.com/datatagsuite/schema) and [context](https://github.com/datatagsuite/context)
 - Minimum Information About Flow Cytometry Experiments: **[MiFlowCyt](https://github.com/FAIRsharing/mircat/tree/master/miflowcyt)**
 
-
-#### Navigation
-
-1) [Setting up](#setting-up)
-2) [Explore existing schemas in the browser](#exploring-an-existing-set-of-schemas) (requires the jsonschema documenter)
-3) [Compare schemas in the browser](#compare-schemas) (requires the compare-and-view tool)
-4) [Merge schemas](#merge-schemas)
-5) [Create new context files or extend existing ones](#create-new-context-files)
-6) [Import MiFlowCyt instances](#import-and-validate-miflowcyt-dataset) (dataset) as JSON-LD and validate them against the proper schema set (requires an API key)
-7) [Identify circularity in existing set of schemas](#optional-identify-circularity-in-schemas) (using yet another python library)
-8) [License](#license)
-9) [Contact](#contact)
 
 
 ## Setting Up:
@@ -131,27 +130,26 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave in t
 Comparing schemas can be particularly useful if you intend on creating **metadata that comply with several models** or to **identify
 overlaps with existing networks** when creating or extending sets of schemas.
 <br/> The key point to understand before comparing schemas or networks is that the comparisons are solely based on ontology labels found
-in context files. This implies that:
+in the [JSON-LD context](http://niem.github.io/json/reference/json-ld/context/) files. This implies that:
 1) Fields and objects without semantic values will never match anything and will be ignored. To verify if all fields are correctly tagged with an ontology term, 
 see above [Exploring an existing set of schemas](#exploring-an-existing-set-of-schemas).
-2) Syntactic constraints are ignored when comparing: only the semantic constraints are being considered.
-3) Comparisons should be ran within the same contexts: using a schema.org on the one hand, versus a obo markup on the other, will very likely lead to no results.
+2) Syntactic constraints are ignored when comparing: **only the semantic constraints are being considered**.
+3) Comparisons should be ran within the same semantic contexts: For instance, comparing a schema.org context versus a obo markup will very likely lead to no results.
 
-The python tool will assist you into running the comparison process which will generate an output file containing the comparison results. However, 
-to visualize the results, you will need to use a second javascript application, the [compare-and-view](https://github.com/FAIRsharing/JSONschema-compare-and-view) tool.
+The python tool will assist you with running the comparison process, which will generate an output file containing the comparison results. To visualize the results, you will need to use a second javascript application, the [compare-and-view](https://github.com/FAIRsharing/JSONschema-compare-and-view) tool.
 <br/> A particularity of this tool is that it relies on the Ontology Lookup Service ([OLS](https://www.ebi.ac.uk/ols/index)) API to resolve the machine readable identifiers into human readable strings. For instance
 ```NCBITaxon_9606``` is also shown as ```homo sapiens``` when displaying the ```source``` of a ```planned process``` in the context of MIACA and MIACME (see figure [below](#screenshots-of-the-miaca-network-loaded-in-the-jsonschema-online-documenter)).
-<br/> This is key to understand the definition held by each property. The property names that can be found in the schemas are human readable representations and do not carry the meaning of the property. That meaning is resolved
-using the ontology identifiers found in the context files. Thus, properties with the same name might not represent the same thing and properties with different names can actually mean the same thing. For instance, both MIACA and MIACME have a 
+<br/> This is key to understand the definition held by each property. The property names, which can be found in the schemas, are human readable representations and do not carry the meaning of the property. That meaning is resolved
+using the ontology identifiers found in the context files. Thus, properties with the same name may not represent the same thing and properties with different names could actually mean the same thing. For instance, both MIACA and MIACME have a 
 ```planned process``` representation that have different names (```project``` for MIACA and ```investigation``` for MIACME).
 <br/> This is the main reason why the comparison align schemas and properties based on the ontology terms and not on the object names.
 
 
 ### Usage
-In order to run a comparison between two networks you will have to use the ```FullDiffGenerator``` or  ```FullSemDiff```classes (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html))
+In order to run a comparison between two networks, you will have to use the ```FullDiffGenerator``` or  ```FullSemDiff```classes (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html))
 based on your use case. Optionally, you can also run a schema comparison with the ```EntityCoverage``` class 
 (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semanticComparator.html))
-if you are working on a specific schema and don't want to resolve the full networks.
+if you are working on a specific schema and don't want to resolve the full network.
 <br> The comparison process is not very intensive but may require to resolve all schemas in the two given networks. This process 
 can be long depending on the number and size of the schemas and the properties of the server delivering them.
 
@@ -181,8 +179,8 @@ the integrity of the output and that it matches the desired result.
 ### Usage
 Coming up soon, please refer to documentation.
 
-If you are creating a network and wish to import a schema you need to create the base file but stripped of property fields and add it to your network through the corresponding reference.
- Identify the ontology term that this object will be labelled with (it need to be the same as the schema you want to import) 
+If you are creating a network and wish to import a schema, you need to create the base file, stripped of property fields, and add it to your network through the corresponding reference.
+ Identify the ontology term that this object will be labelled with (it needs to be the same as the schema you want to import from) 
  and add it to the corresponding context file. When running the merge, the object, its references and their respective context files will be
  added to the output.
  <br/> Note: the input is never modified, a third network is created for you instead.
@@ -190,12 +188,12 @@ If you are creating a network and wish to import a schema you need to create the
 ## Create new context files
 
 ### Use-cases
-These functionality are extremely important to **allow different communities** that agreed on syntactic constraints **to use different ontology** (thus, semantic constraints). This enables, for instance, to have
+This functionality is extremely important to **allow different communities** that agreed on syntactic constraints **to use different ontology** (thus, distinct semantic constraints). This enables, for instance, to have
 ```dcat```, ```schema.org``` and ```obo``` markups describing the same schemas. 
 <br/> This is also key when one wants to comply with the syntactic constraints of a schema
 but can't use or disagree with the proposed ontology terms. Rather than creating a new network from scratch or importing the existing one, an easier and more reusable solution is to extend the existing one.
 <br /> The code will assist you into creating the context files, pre-populated with the desired ontology prefixes and URL, and the corresponding mapping files.
-<br> Unfortunately, without extensive AI, the code cannot guess ontology terms. Thus, you will have to find the ontology terms and identifiers yourself and manually add them
+<br> Unfortunately, in the absence of more advanced solutions (AI or otherwise), the library cannot guess ontology terms. Thus, you will have to perfomrm the ontology terms and identifiers lookup yourself and manually add them
 to the corresponding field in the corresponding context files that have been created for you.
 
 ### Usage
@@ -206,7 +204,7 @@ Coming up soon, please refer to documentation.
 ## Import and validate MiFlowCyt dataset
 
 ### Use-cases
-This code will not be relevant to developers or data providers trying to create their own set of schemas. It purpose is to showcase how the code works and the functionality that can be used.
+This code will not be relevant to developers or data providers trying to create their own set of schemas. Its purpose is to showcase how the code works and the functionalities that can be used.
 
 Using the JSON-Documenter, the comparator and the context file assistance, the Minimum Information About Flow Cytometry Experiments checklist was expressed in JSON-Schemas and tagged with ontology terms from obo foundry.
 <br/> The code in the module is a client implementation of the Flow Repository API which deliver MiFlowCyt dataset through XML format.
@@ -224,8 +222,8 @@ Coming up soon, please refer to documentation.
 
 ### Use-cases
 Some networks and schemas, due to the ability to reference each others, can have a lot of circularity. On top of being harder to navigate through for human beings,
-it can also create algorithmic bugs including endless loops, recursive caps, ... In very rare cases, it's even 
-possible to use this technique to crash a target host by triggering an uncaught endless loop.
+it can also create algorithmic bugs including endless loops, recursive caps and so on... In very rare cases, it is even 
+possible to use this technique to crash a target host by triggering an uncaught endless loop. It is therefore a good thing to check and be aware of.
 <br/> This code will simply identify circularity between schemas in a network and return them as an array by using First Depth Search.
 
 ### Usage
