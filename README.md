@@ -55,7 +55,7 @@ The tested input networks required to create the toolkit are the following:
 
 
 
-## Setting Up:
+## 1. Setting Up:
 
 First, you will need to set up a virtual environment, then import the code and install dependencies:
 ```
@@ -84,7 +84,7 @@ You will need to provide:
 Integration tests are located under ```/tests/integration```. They rely on API calls and are therefore excluded from the continuous integration builds.
 
 
-## Exploring existing JSON schemas:
+## 2. Exploring existing JSON schemas:
 
 ### Use case:
 When exploring or looking at extending a set of schemas, whether you are a community trying to create their own specifications or a data producer trying to comply with a model,
@@ -124,7 +124,7 @@ put it under a web server (such as Apache, Nginx, ...). It will then behave in t
 ![alt text](assets/documenter_miaca.png "Documenter loaded with MIACA schema")
 
 
-## Comparing JSON schemas
+## 3. Comparing JSON schemas
 
 ### Use case:
 Comparing schemas can be particularly useful if you intend on creating **metadata that comply with several models** or to **identify
@@ -158,7 +158,7 @@ can be long depending on the number and size of the schemas and the properties o
 ![alt text](assets/comparator.png "Comparison between MIACA and MIACME")
 
 
-## Merging JSON schemas
+## 4. Merging JSON schemas
 
 ### Use case:
 Merging is the logical extension of the comparison functions. It will help you **import properties** and **schemas** from one network to another without
@@ -200,7 +200,7 @@ to the corresponding field in the corresponding context files that have been cre
 Coming up soon, please refer to documentation.
 
 
-## (Optional) Identify circularity in schemas
+## 5. (Optional) Identify circularity in schemas
 
 ### Use case:
 As touched upon in the introduction, some networks and schemas, due to the ability to reference each others, may become fairly complex and harbour circularity. Besides being harder to navigate for human beings,
@@ -212,7 +212,7 @@ It is therefore a good thing to checkfor circularity in JSON schema networks and
 Please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles) and the following [jupyter notebook](https://github.com/FAIRsharing/jsonCycles/blob/master/notebooks/Finding_jsonCycles.ipynb).
 
 
-## Import and validate MiFlowCyt dataset
+## 6. Import and validate MiFlowCyt dataset
 
 ### Use case:
 The purpose of this section is to showcase how the code works and how the various functionalities can be used.
