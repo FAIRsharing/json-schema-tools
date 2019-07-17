@@ -146,7 +146,7 @@ using the ontology identifiers found in the context files. Thus, properties with
 
 
 ### Usage:
-In order to run a comparison between two networks, you will have to use the ```FullDiffGenerator``` or  ```FullSemDiff```classes (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html))
+In order to run a comparison between two networks, you will have to use the ```FullDiffGenerator``` or  [```FullSemDiff```](https://jsonldschema.readthedocs.io/en/latest/semDiff/semDiffIndex.html) classes (see [documentation])
 based on your use case. Optionally, you can also run a schema comparison with the ```EntityCoverage``` class 
 (see [documentation](https://jsonldschema.readthedocs.io/en/latest/semDiff/semanticComparator.html))
 if you are working on a specific schema and don't want to resolve the full network.
