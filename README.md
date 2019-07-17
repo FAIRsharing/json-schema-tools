@@ -11,7 +11,7 @@
 3) [Comparing JSON schemas in the browser](#compare-schemas) (requires the compare-and-view tool)
 4) [Merging JSON schemas](#merge-schemas)
 5) [Creating new JSON-LD context files or extend existing ones](#create-new-context-files)
-6) [Identifying circularity in a set of JSON schemas](#optional-identify-circularity-in-schemas) (using yet another python library)
+6) [Identifying circularity in a set of JSON schemas](#optional-identify-circularity-in-schemas) (requires jsoncycles tool)
 7) [A worked example: Importing MiFlowCyt instances](#import-and-validate-miflowcyt-dataset) (dataset) as JSON-LD and validating them against relevant JSON schema set (requires an API key)
 8) [License](#license)
 9) [Contact](#contact)
@@ -24,7 +24,7 @@ descriptions, values, cardinality and so on.
 <br/> The specification provides a powerful mechanism (the ```$ref``` keyword) to create links between schemas called references. An easy to understand example is the relationship between an ```Organization``` and a ```Perso``` through 
 the ```employee``` property. In some rare cases, an employee could also be another organization or even both at the 
  same time (a single self-employed person hired as a service provider through his own company). JSON-Schema supports these types of relationships through the use of the ```anyOf```, ```oneOf``` and ```allOf``` keywords.
-<br/> These references give the ability to create very complex oriented graphs (possibly cyclic ones, see [below](#optional-identify-circularity-in-schemas)) where each
+<br/> These references give the ability to create very complex oriented graphs (possibly cyclic ones, where each
 vertices is a _schema_ and each edge a _relationship between two schemas_. In this documentation we will refer to these interconnected structures
  as **networks**.
 
@@ -203,19 +203,20 @@ Coming up soon, please refer to documentation.
 ## (Optional) Identify circularity in schemas
 
 ### Use case:
-Some networks and schemas, due to the ability to reference each others, can have a lot of circularity. On top of being harder to navigate through for human beings,
-it can also create algorithmic bugs including endless loops, recursive caps and so on... In very rare cases, it is even 
-possible to use this technique to crash a target host by triggering an uncaught endless loop. It is therefore a good thing to check and be aware of.
-<br/> This code will simply identify circularity between schemas in a network and return them as an array by using First Depth Search.
+As touched upon in the introduction, some networks and schemas, due to the ability to reference each others, may become fairly complex and harbour circularity. Besides being harder to navigate for human beings,
+such occurrences may also create algorithmic issues including endless loops, recursive caps and so on... In very rare cases, it could even lead to a crash of the target host by triggering an uncaught endless loop.
+It is therefore a good thing to checkfor circularity in JSON schema networks and be aware of those.
+<br/> This library component, using First Depth Search approach, will identify circularity between schemas in a network and return them as an array.
 
 ### Usage:
-Coming up soon, please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles).
+Please refer to [JSON-Cycles](https://github.com/FAIRsharing/jsonCycles) and the following [jupyter notebook](https://github.com/FAIRsharing/jsonCycles/blob/master/notebooks/Finding_jsonCycles.ipynb).
 
 
 ## Import and validate MiFlowCyt dataset
 
 ### Use case:
-This code will not be relevant to developers or data providers trying to create their own set of schemas. Its purpose is to showcase how the code works and the functionalities that can be used.
+The purpose of this section is to showcase how the code works and how the various functionalities can be used.
+**(This code will not be relevant to developers or data providers trying to create their own set of schemas.)**
 
 Using the JSON-Documenter, the comparator and the context file assistance, the Minimum Information About Flow Cytometry Experiments checklist was expressed in JSON-Schemas and tagged with ontology terms from obo foundry.
 <br/> The code in the module is a client implementation of the Flow Repository API which deliver MiFlowCyt dataset through XML format.
