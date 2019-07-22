@@ -8,5 +8,6 @@ DeepDiff
 mock
 xmljson
 JSONBender
-falcon
+falcon==1.4.1
 gunicorn
+PyYAML
