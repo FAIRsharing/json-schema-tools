@@ -224,8 +224,8 @@ Coming up soon, please refer to the [documentation](https://jsonldschema.readthe
 # Presentations 
 
 - BOSC 2019 - details to follow
-- [Machine Actionable Metadata Models: JSONLD-Schema and JSON-Schema documenter](https://doi.org/10.5281/zenodo.2558716) by Alejandra Gonzalez-Beltran and Dominique Batista, Research Software London & South East Workshop, 7th February 2019, London, UK
-- [FAIR metadata standards](https://doi.org/10.6084/m9.figshare.7206518.v1), by Alejandra Gonzalez-Beltran in the Inaugural Workshop on Metadata for Machines, GO-FAIR initiative, 15th October 2018, Leiden, Netherlands
+- [Machine Actionable Metadata Models: JSONLD-Schema and JSON-Schema documenter](https://doi.org/10.5281/zenodo.2558716) by Gonzalez-Beltran and Batista, Research Software London & South East Workshop, 7th February 2019, London, UK
+- [FAIR metadata standards](https://doi.org/10.6084/m9.figshare.7206518.v1), by Gonzalez-Beltran, Rocca-Serra and Sansone at the Inaugural Workshop on Metadata for Machines, GO-FAIR initiative, 15th October 2018, Leiden, Netherlands
 
 
 
@@ -235,7 +235,5 @@ This code is provided under [BSD 3-Clause License](https://github.com/FAIRsharin
 ## Contact
 
 - [Dominique Batista](http://github.com/terazus)
-- [Alejandra Gonzalez-Beltran](https://agbeltran.github.io/)
-- Philippe Rocca-Serra
-- Susanna Sansone
+- [Philippe Rocca-Serra](https://github.com/proccaserra)
 
